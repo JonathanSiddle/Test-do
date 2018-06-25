@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TodoProjectListComponent } from './containers/todo-project-list/todo-project-list.component';
 import { TodoProjectListViewComponent } from './components/todo-project-list-view/todo-project-list-view.component';
+import { ProjectService } from '../shared/services/projects.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { TodoProjectListViewComponent } from './components/todo-project-list-vie
   ],
   exports: [
     TodoProjectListComponent
+  ],
+  providers: [
+    ProjectService
   ]
 })
 export class TodoModule { }

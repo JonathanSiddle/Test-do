@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { LayoutModule } from '@angular/cdk/layout';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     LayoutModule,
     HomeModule
