@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { ProjectService } from './../../../shared/services/projects.service';
 import { Component, OnInit } from '@angular/core';
 import { ToDoProject } from '../../../shared/models/todoProject';
@@ -9,27 +10,21 @@ import { ToDoProject } from '../../../shared/models/todoProject';
 })
 export class TodoProjectListComponent implements OnInit {
 
-  public todoProjects = new Array(
-    new ToDoProject(1, 'Test Project1', 'Jim'),
-    new ToDoProject(2, 'Test Project2', 'Jim'),
-    new ToDoProject(3, 'Test Project3', 'Jim'));
-
-  public testName = 'testInput';
+  public projects$: Observable<ToDoProject[]>;
+  public projects: ToDoProject[] = [];
 
   constructor(private projectService: ProjectService) { }
 
   ngOnInit() {
+    this.projects$ = this.projectService.getAll();
     this.projectService.getAll().subscribe(
-      response => {
-        this.todoProjects = response;
+      returnedProjects => {
+        // console.log('Got projects');
+        this.projects = returnedProjects;
       },
       error => {
-        console.log('error:' + error);
+        // console.log('error:' + error);
       }
     );
   }
-
-  clickedButton(input: string) {
-  }
-
 }

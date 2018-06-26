@@ -1,7 +1,6 @@
 import { Headers, RequestOptions } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BadInput } from './errors/bad-input';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -9,9 +8,9 @@ export class DataService <T> {
 
   private baseUrl = 'http://localhost:3000/';
   private fullUrl = '';
-  public badInputHandler: (response: BadInput) => void;
 
-  constructor(protected http: HttpClient) {
+  constructor(protected endPoint: string, protected http: HttpClient) {
+      this.fullUrl = this.baseUrl + endPoint;
   }
 
   getAll(): Observable<Array<T>> {
