@@ -1,30 +1,30 @@
-import { HttpClient } from '@angular/common/http';
 import { ProjectService } from './../../../shared/services/projects.service';
-import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, discardPeriodicTasks, tick } from '@angular/core/testing';
 
 import { TodoProjectListComponent } from './todo-project-list.component';
 import { ToDoProject } from '../../../shared/models/todoProject';
 import { asyncData } from '../../../../testing/shared/async-observable-helpers';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of } from 'rxjs';
-
-
-let httpClientSpy: { get: jasmine.Spy };
-httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+import { of, timer } from 'rxjs';
+import { mapTo } from 'rxjs/operators';
 
 describe('TodoProjectListComponent', () => {
+
   let component: TodoProjectListComponent;
   let fixture: ComponentFixture<TodoProjectListComponent>;
-  // used for testing
+
+  // set up project service with fake http client
+  let httpClientSpy: { get: jasmine.Spy };
+  httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
   let projectServiceTest: ProjectService;
+  projectServiceTest = new ProjectService(<any> httpClientSpy);
+  httpClientSpy.get.and.returnValue(asyncData(Array<ToDoProject>()));
+  // used for testing
 
   beforeEach(() => {
-
   });
 
   beforeEach(async(() => {
-    projectServiceTest = new ProjectService(<any> httpClientSpy);
-    httpClientSpy.get.and.returnValue(asyncData(Array<ToDoProject>()));
 
     TestBed.configureTestingModule({
       declarations: [ TodoProjectListComponent ],
@@ -40,7 +40,6 @@ describe('TodoProjectListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TodoProjectListComponent);
     component = fixture.componentInstance;
-    
     fixture.detectChanges();
   });
 
@@ -48,10 +47,13 @@ describe('TodoProjectListComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('projects should init to empty list, not null', () => {
+    expect(component.projects.length).toEqual(0);
+  });
+
   it('should get projects after init', () => {
-    // set up return data
-    fixture.detectChanges();
     const expectedProjects: ToDoProject[] = [{Id: 3, Name: 'Test3', Owner : 'Jon'}, {Id: 4, Name: 'Test4', Owner : 'Jon'}];
+    // override the existing http spy method with new data
     httpClientSpy.get.and.returnValue(of(expectedProjects));
 
     component.ngOnInit();
@@ -59,4 +61,26 @@ describe('TodoProjectListComponent', () => {
     expect(component.projects).toEqual(expectedProjects);
     // expect(false).toBeTruthy();
   });
+
+  it('should get projects after init async', fakeAsync(() => {
+    const expectedProjects: ToDoProject[] = [{Id: 5, Name: 'Test5', Owner : 'Jon'}, {Id: 6, Name: 'Test6', Owner : 'Jon'}];
+    // override the existing http spy method with new data
+    httpClientSpy.get.and.returnValue(timer(1000).pipe(mapTo(expectedProjects)));
+
+    component.ngOnInit();
+    tick(2000);
+    expect(component.projects).toEqual(expectedProjects);
+    // expect(false).toBeTruthy();
+  }));
+
+  // it('should get projects after init async (using other async claass)', fakeAsync(() => {
+  //   const expectedProjects: ToDoProject[] = [{Id: 5, Name: 'Test5', Owner : 'Jon'}, {Id: 6, Name: 'Test6', Owner : 'Jon'}];
+  //   // override the existing http spy method with new data
+  //   httpClientSpy.get.and.returnValue(timer(1000).pipe(mapTo(expectedProjects)));
+
+  //   component.ngOnInit();
+  //   tick(2000);
+  //   expect(component.projects).toEqual(expectedProjects);
+  //   // expect(false).toBeTruthy();
+  // }));
 });

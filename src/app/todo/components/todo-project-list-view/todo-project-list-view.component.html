@@ -1,8 +1,8 @@
 <p>
-  todo-list-view
+  -todo-list-view-
 </p>
 <p *ngFor="let p of this.projects">
-  {{ p.Name }} -- Owner({{ p.Owner }})
+    <a [routerLink]="['App/todo']" routerLinkActive="active">{{ p.Name }} -- Owner({{ p.Owner }})</a>
 </p>
 
 <!-- <p>
