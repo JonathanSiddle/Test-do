@@ -1,0 +1,40 @@
+{
+    "Projects" :[
+        {
+            "Id": 1,
+            "Name" : "Personal to-do list",
+            "Owner" : "Jonathan"
+        },
+        {
+            "Id": 2,
+            "Name" : "Work to-do list",
+            "Owner" : "Jonathan"
+        },
+        {
+            "Id": 3,
+            "Name" : "Random remaining to-dos",
+            "Owner" : "Jonathan"
+        }
+    ],
+    "ToDoLists": [
+        {
+            "id": 1,
+            "Name": "Personal to-do list",
+            "Owner" : "Jonathan",
+            "Items" : [
+                {"Name" : "Pick-up veg", "complete": false},
+                {"Name" : "Buy a tiny stegosaurus", "complete": false}
+            ]
+        },
+        {
+            "id": 2,
+            "Name" : "Work to-do list",
+            "Owner" : "Jonathan",
+            "Items" : [
+                {"Name" : "Finish todo application", "complete": false},
+                {"Name" : "Finish testing the application", "complete": false},
+                {"Name" : "Document changes", "complete": false}
+            ]
+        }
+    ]
+}

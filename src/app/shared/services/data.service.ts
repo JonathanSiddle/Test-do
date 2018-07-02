@@ -20,12 +20,12 @@ export class DataService <T> {
     return this.http.get<Array<T>>(this.fullUrl);
   }
 
-  // getOne(id: Number) {
-  //   const headers = new Headers();
-  //   headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-  //   const options = new RequestOptions({headers: headers});
-  // return this.http.get(this.fullUrl + '/' + id, options);
-  // }
+  getOne(id: Number): Observable<T> {
+    // const headers = new Headers();
+    // headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    // const options = new RequestOptions({headers: headers});
+    return this.http.get<T>(this.fullUrl + '/' + id);
+  }
 
   // create(resource) {
   //   const headers = new Headers();
