@@ -7,7 +7,7 @@
     <ng-container matColumnDef="Name">
         <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 70%'"> Name </mat-header-cell>
         <mat-cell *matCellDef="let project" [style.flex]="'0 0 70%'"> 
-            <a routerLink="/App/Todo">{{ project.Name }} </a> 
+            <a [routerLink]="['/App/Todo', project.Id]">{{ project.Name }} </a> 
         </mat-cell>
     </ng-container>
 

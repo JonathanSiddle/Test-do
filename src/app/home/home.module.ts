@@ -9,15 +9,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { TodoListComponent } from '../todo/containers/todo-list/todo-list.component';
 
 const routes: Routes = [
-  {path: 'App/Todo', component: TodoListComponent},
+  {path: 'App/Todo/:id', component: TodoListComponent},
   {path: 'App/Projects', component: TodoProjectListComponent},
   {path: '', redirectTo: 'App/Projects', pathMatch: 'full'},
 ];
 
 @NgModule({
   imports: [
-    // RouterModule.forRoot(routes, { enableTracing: true } ),
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { enableTracing: true } ),
+    // RouterModule.forRoot(routes),
     CommonModule,
     SharedModule,
     TodoModule
