@@ -1,0 +1,7 @@
+<h1> {{ this.toDoList.Name }} - {{ this.toDoList.Owner }}</h1>
+<ul>
+  <li *ngFor="let i of this.toDoList.Items">
+    {{ i.Name }} <input type="checkbox" name="i.id" value="i.id" [checked]="i.Complete">
+  </li>
+</ul>
+

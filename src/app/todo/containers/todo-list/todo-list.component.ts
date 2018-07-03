@@ -20,6 +20,7 @@ export class TodoListComponent implements OnInit {
     this.toDoList$.subscribe(
       returnedToDoList => {
         this.toDoList = returnedToDoList;
+        // console.dir(this.toDoList);
       },
       error => {
         // do something with this error...

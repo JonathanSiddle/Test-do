@@ -22,8 +22,8 @@
             "Name": "Personal to-do list",
             "Owner" : "Jonathan",
             "Items" : [
-                {"Name" : "Pick-up veg", "complete": false},
-                {"Name" : "Buy a tiny stegosaurus", "complete": false}
+                {"id": 1, "Name" : "Pick-up veg", "Complete": false},
+                {"id": 2,"Name" : "Buy a tiny stegosaurus", "Complete": true}
             ]
         },
         {
@@ -31,9 +31,9 @@
             "Name" : "Work to-do list",
             "Owner" : "Jonathan",
             "Items" : [
-                {"Name" : "Finish todo application", "complete": false},
-                {"Name" : "Finish testing the application", "complete": false},
-                {"Name" : "Document changes", "complete": false}
+                {"id": 3, "Name" : "Finish todo application", "Complete": false},
+                {"id": 4, "Name" : "Finish testing the application", "Complete": true},
+                {"id": 5, "Name" : "Document changes", "Complete": false}
             ]
         }
     ]

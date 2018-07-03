@@ -9,6 +9,7 @@ import { ToDoProject } from '../../../shared/models/todoProject';
 export class TodoProjectListViewComponent implements OnInit {
 
   @Input() public projects: Array<ToDoProject>;
+  public displayedColumns = ['Name', 'Owner'];
 
   constructor() { }
 

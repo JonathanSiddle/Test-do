@@ -1,7 +1,7 @@
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatListModule, MatIconModule, MatSidenavModule, MatButtonModule, MatToolbarModule } from '@angular/material';
+import { MatListModule, MatIconModule, MatSidenavModule, MatButtonModule, MatToolbarModule, MatTableModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -10,7 +10,8 @@ import { MatListModule, MatIconModule, MatSidenavModule, MatButtonModule, MatToo
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTableModule
   ],
   declarations: [NavBarComponent],
   exports: [
@@ -20,7 +21,8 @@ import { MatListModule, MatIconModule, MatSidenavModule, MatButtonModule, MatToo
     MatIconModule,
     MatListModule,
     // my components
-    NavBarComponent
+    NavBarComponent,
+    MatTableModule
   ]
 })
 export class SharedModule { }

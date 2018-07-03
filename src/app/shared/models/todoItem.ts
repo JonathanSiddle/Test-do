@@ -1,3 +1,5 @@
 export class ToDoItem {
-    constructor(public Name: string, public Complete: boolean) {}
+    constructor(public id: Number = 0,
+        public Name: string = '',
+        public Complete: boolean = false) {}
 }
