@@ -17,8 +17,6 @@ import { By } from '@angular/platform-browser';
 // class MockProjectListViewComponent {
 //   @Input() public projects: Array<ToDoProject>;
 // }
-
-
 @Component({
     selector: 'app-todo-project-list-view',
     template: '<p>Mock project list-view component</p>'

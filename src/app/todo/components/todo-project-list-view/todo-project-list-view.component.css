@@ -5,3 +5,9 @@
 .seventy-width {
     flex: 0 0 70%;
 }
+
+.fab {
+    position:fixed;
+    right:3%;
+    bottom:3%;
+}
