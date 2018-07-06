@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TodoListComponent } from '../todo/containers/todo-list/todo-list.component';
+import { NewProjectDialogComponent } from '../shared/dialogs/new-project-dialog/new-project-dialog.component';
 
 const routes: Routes = [
   {path: 'App/Todo/:id', component: TodoListComponent},
@@ -21,6 +22,9 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     TodoModule
+  ],
+  entryComponents: [
+    NewProjectDialogComponent
   ],
   declarations: [
     HomePageComponent,

@@ -29,4 +29,9 @@ export class TodoProjectListComponent implements OnInit {
       }
     );
   }
+
+  addedNewProject(event) {
+    console.log('In added new project method!');
+    console.log(event);
+  }
 }

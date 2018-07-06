@@ -23,7 +23,7 @@ import { By } from '@angular/platform-browser';
   })
 export class MockProjectListViewComponent extends TodoProjectListViewComponent {
     constructor() {
-       super();
+       super(null);
   }
 }
 
@@ -127,4 +127,23 @@ describe('TodoProjectListComponent', () => {
     expect(component.projects).toEqual(expectedProjects);
     // expect(false).toBeTruthy();
   }));
+
+  it('should called new project method after child fires event', () => {
+    // set-up 
+    const expectedProjects: ToDoProject[] = [{Id: 9, Name: 'Test9', Owner : 'Jon'}, {Id: 10, Name: 'Test10', Owner : 'Jon'}];
+    httpClientSpy.get.and.returnValue(of(expectedProjects));
+    component.ngOnInit();
+    fixture.detectChanges();
+    const childDebugEl = fixture.debugElement.query(By.directive(MockProjectListViewComponent));
+    childComponent = childDebugEl.componentInstance;
+
+    // testy stuff
+    const componentSpy = spyOn(component, 'addedNewProject');
+    childComponent.raiseAddedProjectEvent('testProject');
+
+    expect(componentSpy).toHaveBeenCalled();
+    expect(componentSpy).toHaveBeenCalledTimes(1);
+    expect(componentSpy).toHaveBeenCalledWith('testProject');
+    // expect(false).toBeTruthy();
+  });
 });

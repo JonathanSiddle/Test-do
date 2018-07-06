@@ -1,1 +1,4 @@
-<app-todo-project-list-view *ngIf="this.projects?.length > 0" [projects]="this.projects"></app-todo-project-list-view>
+<app-todo-project-list-view 
+  *ngIf="this.projects?.length > 0" 
+  [projects]="this.projects"
+  (addedProject)="addedNewProject($event)"></app-todo-project-list-view>
