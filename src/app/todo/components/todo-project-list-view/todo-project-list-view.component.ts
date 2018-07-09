@@ -1,7 +1,7 @@
 import { NewProjectDialogComponent } from './../../../shared/dialogs/new-project-dialog/new-project-dialog.component';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, SimpleChanges, OnChanges} from '@angular/core';
 import { ToDoProject } from '../../../shared/models/todoProject';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTable } from '@angular/material';
 
 @Component({
   selector: 'app-todo-project-list-view',
@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material';
 })
 export class TodoProjectListViewComponent implements OnInit {
 
+  @ViewChild(MatTable) matTable: MatTable<ToDoProject>;
   @Input() public projects: Array<ToDoProject>;
   @Output() addedProject = new EventEmitter<string>();
   public displayedColumns = ['Name', 'Owner'];
@@ -29,6 +30,11 @@ export class TodoProjectListViewComponent implements OnInit {
         }
       }
     );
+  }
+
+  refreshData() {
+    console.log('called refresh data');
+    this.matTable.renderRows();
   }
 
   raiseAddedProjectEvent(projName: string) {

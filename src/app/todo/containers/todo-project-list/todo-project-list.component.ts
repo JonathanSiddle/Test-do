@@ -1,6 +1,7 @@
+import { TodoProjectListViewComponent } from './../../components/todo-project-list-view/todo-project-list-view.component';
 import { Observable } from 'rxjs';
 import { ProjectService } from './../../../shared/services/projects.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ToDoProject } from '../../../shared/models/todoProject';
 
 @Component({
@@ -10,15 +11,16 @@ import { ToDoProject } from '../../../shared/models/todoProject';
 })
 export class TodoProjectListComponent implements OnInit {
 
-  public projects$: Observable<ToDoProject[]>;
+  @ViewChild(TodoProjectListViewComponent) projectListView: TodoProjectListViewComponent;
   public projects: ToDoProject[] = [];
+  public addedProject: ToDoProject;
 
   constructor(private projectService: ProjectService) {
      this.projects = [];
   }
 
   ngOnInit() {
-    this.projects$ = this.projectService.getAll();
+    // this.projects$ = this.projectService.getAll();
     this.projectService.getAll().subscribe(
       returnedProjects => {
         // console.log('Got projects');
@@ -31,7 +33,19 @@ export class TodoProjectListComponent implements OnInit {
   }
 
   addedNewProject(event) {
-    console.log('In added new project method!');
-    console.log(event);
+    const addIndex = this.projects.length + 1;
+    const newProj = new ToDoProject(addIndex, event, 'Jonathan');
+    console.log(newProj);
+    // this.addedProject$ = this.projectService.create(new ToDoProject(addIndex, event, 'Jonathan'));
+    this.projectService.create(newProj).subscribe(
+      returnedProjects => {
+        console.log('Got projects');
+        this.projects.push(returnedProjects);
+        this.projectListView.refreshData();
+      },
+      error => {
+        console.dir(error);
+      }
+    );
   }
 }

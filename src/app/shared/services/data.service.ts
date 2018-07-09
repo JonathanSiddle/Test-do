@@ -1,7 +1,8 @@
 import { Headers, RequestOptions } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { resolveReflectiveProviders } from '../../../../node_modules/@angular/core/src/di/reflective_provider';
 
 @Injectable()
 export class DataService <T> {
@@ -27,13 +28,19 @@ export class DataService <T> {
     return this.http.get<T>(this.fullUrl + '/' + id);
   }
 
-  // create(resource) {
-  //   const headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-  //   headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-  //   const options = new RequestOptions({headers: headers});
-  //   return this.http.post(this.fullUrl, JSON.stringify(resource), options);
-  // }
+  create(resource: T): Observable<T> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      })
+    };
+    // const headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    // const options = new RequestOptions({headers: headers});
+    return this.http.post<T>(this.fullUrl, JSON.stringify(resource), httpOptions);
+  }
+
   // update(resource) {
   //   return this.http.patch(this.fullUrl + '/' + resource.id, JSON.stringify({ isRead: true }));
   // }
