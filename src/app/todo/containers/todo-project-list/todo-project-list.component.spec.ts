@@ -68,7 +68,8 @@ describe('TodoProjectListComponent', () => {
   });
 
   it('should get projects after init', () => {
-    const expectedProjects: ToDoProject[] = [{id: 1, Name: 'Test1', Owner : 'Jon'}, {id: 2, Name: 'Test2', Owner : 'Jon'}];
+    const expectedProjects: ToDoProject[] = [{id: 1, Name: 'Test1', Owner : 'Jon', Tags: new Array<String>},
+              {id: 2, Name: 'Test2', Owner : 'Jon', Tags: new Array<String>}];
     // override the existing http spy method with new data
     httpClientSpy.get.and.returnValue(of(expectedProjects));
 
@@ -79,7 +80,8 @@ describe('TodoProjectListComponent', () => {
   });
 
   it('should get projects after init async(with delay)', fakeAsync(() => {
-    const expectedProjects: ToDoProject[] = [{id: 3, Name: 'Test3', Owner : 'Jon'}, {id: 4, Name: 'Test4', Owner : 'Jon'}];
+    const expectedProjects: ToDoProject[] = [{id: 3, Name: 'Test3', Owner : 'Jon', Tags: new Array<String>},
+            {id: 4, Name: 'Test4', Owner : 'Jon', Tags: new Array<String>}];
     // override the existing http spy method with new data
     httpClientSpy.get.and.returnValue(timer(1000).pipe(mapTo(expectedProjects)));
     // make sure projects start out empty
@@ -93,7 +95,8 @@ describe('TodoProjectListComponent', () => {
   }));
 
   it('should set property of child component', fakeAsync(() => {
-    const expectedProjects: ToDoProject[] = [{id: 5, Name: 'Test5', Owner : 'Jon'}, {id: 6, Name: 'Test6', Owner : 'Jon'}];
+    const expectedProjects: ToDoProject[] = [{id: 5, Name: 'Test5', Owner : 'Jon', Tags: new Array<String>},
+        {id: 6, Name: 'Test6', Owner : 'Jon', Tags: new Array<String>}];
     // override the existing http spy method with new data
     httpClientSpy.get.and.returnValue(of(expectedProjects));
 
@@ -112,7 +115,8 @@ describe('TodoProjectListComponent', () => {
   }));
 
   it('should only create child component after setting projects in host (async)', fakeAsync(() => {
-    const expectedProjects: ToDoProject[] = [{id: 7, Name: 'Test7', Owner : 'Jon'}, {id: 8, Name: 'Test8', Owner : 'Jon'}];
+    const expectedProjects: ToDoProject[] = [{id: 7, Name: 'Test7', Owner : 'Jon', Tags: new Array<String>},
+            {id: 8, Name: 'Test8', Owner : 'Jon', Tags: new Array<String>}];
     // override the existing http spy method with new data
     httpClientSpy.get.and.returnValue(timer(1000).pipe(mapTo(expectedProjects)));
 
@@ -130,8 +134,9 @@ describe('TodoProjectListComponent', () => {
   }));
 
   it('should called new project method after child fires event', () => {
-    // set-up 
-    const expectedProjects: ToDoProject[] = [{id: 9, Name: 'Test9', Owner : 'Jon'}, {id: 10, Name: 'Test10', Owner : 'Jon'}];
+    // set-up
+    const expectedProjects: ToDoProject[] = [{id: 9, Name: 'Test9', Owner : 'Jon', Tags: new Array<String>},
+          {id: 10, Name: 'Test10', Owner : 'Jon', Tags: new Array<String>}];
     httpClientSpy.get.and.returnValue(of(expectedProjects));
     component.ngOnInit();
     fixture.detectChanges();
@@ -150,7 +155,8 @@ describe('TodoProjectListComponent', () => {
 
   it('should send new Project to server and refresh data when addNewProject called', () => {
     // set-up
-    const expectedProjects: ToDoProject[] = [{id: 9, Name: 'Test9', Owner : 'Jon'}, {id: 10, Name: 'Test10', Owner : 'Jon'}];
+    const expectedProjects: ToDoProject[] = [{id: 9, Name: 'Test9', Owner : 'Jon', Tags: new Array<String>},
+        {id: 10, Name: 'Test10', Owner : 'Jon', Tags: new Array<String>}];
     const expectedProject = new ToDoProject(3, 'testProject', 'Jonathan');
     httpClientSpy.get.and.returnValue(of(expectedProjects));
     httpClientSpy.post.and.returnValue(of(expectedProject));

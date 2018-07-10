@@ -27,8 +27,11 @@ export class MdDialogMock {
 describe('TodoProjectListViewComponent', () => {
   let component: TodoProjectListViewComponent;
   let fixture: ComponentFixture<TodoProjectListViewComponent>;
+  let dialog: MdDialogMock;
 
   beforeEach(async(() => {
+    dialog = new MdDialogMock();
+
     TestBed.configureTestingModule({
       imports: [ MaterialImportsModule, RouterTestingModule.withRoutes([
         { path: '', redirectTo: 'App/Projects', pathMatch: 'full' },
@@ -53,8 +56,8 @@ describe('TodoProjectListViewComponent', () => {
 
   it('should create a link for each project in list', () => {
     const expectedProjects: ToDoProject[] = [
-                    {Id: 1, Name: 'Test1', Owner : 'Jon'},
-                    {Id: 2, Name: 'Test2', Owner : 'Jon'}];
+                    {id: 1, Name: 'Test1', Owner : 'Jon', Tags: null},
+                    {id: 2, Name: 'Test2', Owner : 'Jon', Tags: null}];
     component.ngOnInit();
     component.projects = expectedProjects;
     fixture.detectChanges();
@@ -64,13 +67,11 @@ describe('TodoProjectListViewComponent', () => {
 
     expect(links.length).toBe(2);
     // console.log(links.item(0).textContent);
-    // console.log(links.item(0).href);
+    console.log(links.item(0).href);
     expect(links.item(0).textContent.trim()).toBe('Test1');
     expect(links.item(0).href.endsWith('App/Todo/1')).toBeTruthy();
     expect(links.item(1).textContent.trim()).toBe('Test2');
     expect(links.item(1).href.endsWith('App/Todo/2')).toBeTruthy();
-
-    // expect(false).toBeTruthy();
   });
 
   it('should raise event when clickedAddNewProject is called and dialog returns values', () => {

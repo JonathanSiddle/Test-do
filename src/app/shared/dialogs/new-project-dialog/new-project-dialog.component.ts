@@ -15,12 +15,12 @@ export class NewProjectDialogComponent implements OnInit {
   public projectName = '';
 
   get isValid() {
-    return (this.projectName.trim().length > 0 && 
+    return (this.projectName.trim().length > 0 &&
       this.projectList.filter(tdp => tdp.Name.trim() === this.projectName.trim()).length === 0);
   }
 
   constructor(public dialogRef: MatDialogRef<NewProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ToDoProject[]) { 
+    @Inject(MAT_DIALOG_DATA) public data: ToDoProject[]) {
       this.projectList = data;
     }
 
