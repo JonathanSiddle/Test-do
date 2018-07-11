@@ -13,6 +13,7 @@ import { ToDoProject, getListOfTagsForProjects } from '../../../shared/models/to
 export class TodoProjectListComponent implements OnInit {
 
   @ViewChild(TodoProjectListViewComponent) projectListView: TodoProjectListViewComponent;
+  @Output() sideBarItemsReady = new EventEmitter<SideBarItem[]>();
   public SideBarContent: SideBarItem[] = [];
   public projects: ToDoProject[] = [];
   public addedProject: ToDoProject;
@@ -28,6 +29,7 @@ export class TodoProjectListComponent implements OnInit {
         // console.log('Got projects');
         this.projects = returnedProjects;
         this.SideBarContent = this.generateSideBarContent(this.projects);
+        this.raiseSidebarEvent(this.SideBarContent);
       },
       error => {
         // console.log('error:' + error);
@@ -59,5 +61,9 @@ export class TodoProjectListComponent implements OnInit {
       content.push(new SideBarItem(tag, ''));
     }
     return content;
+  }
+
+  raiseSidebarEvent(items: SideBarItem[]) {
+    this.sideBarItemsReady.emit(items);
   }
 }
