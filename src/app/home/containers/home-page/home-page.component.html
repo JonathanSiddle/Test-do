@@ -7,11 +7,17 @@
   </mat-toolbar>
 
   <mat-sidenav-container class="full-height">
-    <mat-sidenav #drawer class="sideNav" mode="push" opened="false">
+    <mat-sidenav #drawer class="sideNav" mode="push" opened="true">
       <mat-nav-list>
-        <a mat-list-item href="#">Projects</a>
-        <a mat-list-item href="#">Link 2</a>
-        <a mat-list-item href="#">Link 3</a>
+        <mat-list-item [routerLink]="['/App/Projects']">
+          <h2 mat-line>Home</h2>
+        </mat-list-item>
+        <ng-container *ngFor="let sc of this.sideBarItems">
+            <mat-list-item [routerLink]="[sc.RouterPath]" >
+                <h2 mat-line>{{ sc.Title }}</h2>
+                <span mat-line>{{ sc.Description }}</span>
+              </mat-list-item> 
+        </ng-container>
       </mat-nav-list>
     </mat-sidenav>
 

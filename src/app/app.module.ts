@@ -1,3 +1,4 @@
+import { SideBarContentService } from './shared/services/sidebarContentService.service';
 import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -18,7 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
     LayoutModule,
     HomeModule
   ],
-  providers: [],
+  providers: [
+    SideBarContentService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

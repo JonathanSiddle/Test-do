@@ -9,8 +9,7 @@ import { TodoListComponent } from './containers/todo-list/todo-list.component';
 import { ToDoListService } from '../shared/services/todoList.service';
 import { TodoListViewComponent } from './components/todo-list-view/todo-list-view.component';
 import { FormsModule } from '../../../node_modules/@angular/forms';
-import { TopLevel1Component } from './containers/top-level1/top-level1.component';
-import { TopLevel2Component } from './containers/top-level2/top-level2.component';
+import { SharedProjectListComponent } from './containers/shared-project-list/shared-project-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,8 +22,7 @@ import { TopLevel2Component } from './containers/top-level2/top-level2.component
     TodoProjectListViewComponent,
     TodoListComponent,
     TodoListViewComponent,
-    TopLevel1Component,
-    TopLevel2Component
+    SharedProjectListComponent
   ],
   exports: [
     TodoProjectListComponent

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopLevel1Component } from './top-level1.component';
+import { SharedProjectListComponent } from './shared-project-list.component';
 
-describe('TopLevel1Component', () => {
-  let component: TopLevel1Component;
-  let fixture: ComponentFixture<TopLevel1Component>;
+describe('SharedProjectListComponent', () => {
+  let component: SharedProjectListComponent;
+  let fixture: ComponentFixture<SharedProjectListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TopLevel1Component ]
+      declarations: [ SharedProjectListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TopLevel1Component);
+    fixture = TestBed.createComponent(SharedProjectListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

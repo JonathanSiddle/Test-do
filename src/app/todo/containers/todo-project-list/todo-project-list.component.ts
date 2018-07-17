@@ -2,8 +2,9 @@ import { SideBarItem } from './../../../shared/SideBarContent';
 import { TodoProjectListViewComponent } from './../../components/todo-project-list-view/todo-project-list-view.component';
 import { Observable } from 'rxjs';
 import { ProjectService } from './../../../shared/services/projects.service';
-import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, , EventEmitter, Output, ViewChild } from '@angular/core';
 import { ToDoProject, getListOfTagsForProjects } from '../../../shared/models/todoProject';
+import { SideBarContentService } from '../../../shared/services/sidebarContentService.service';
 
 @Component({
   selector: 'app-todo-project-list',
@@ -12,13 +13,17 @@ import { ToDoProject, getListOfTagsForProjects } from '../../../shared/models/to
 })
 export class TodoProjectListComponent implements OnInit {
 
+  private sideBarNav = Array<SideBarItem>(
+    new SideBarItem('Shared Projects', 'Projects I do not own', 'App/SharedProjects')
+  );
+
   @ViewChild(TodoProjectListViewComponent) projectListView: TodoProjectListViewComponent;
   @Output() sideBarItemsReady = new EventEmitter<SideBarItem[]>();
   public SideBarContent: SideBarItem[] = [];
   public projects: ToDoProject[] = [];
   public addedProject: ToDoProject;
 
-  constructor(private projectService: ProjectService) {
+  constructor(private sideBarContentService: SideBarContentService, private projectService: ProjectService) {
      this.projects = [];
   }
 
@@ -35,6 +40,11 @@ export class TodoProjectListComponent implements OnInit {
         // console.log('error:' + error);
       }
     );
+  }
+
+  ngAfterViewInit() {
+    console.log('setting sidebar content from project-list');
+    this.sideBarContentService.setSideBarContent(this.sideBarNav);
   }
 
   addedNewProject(event) {

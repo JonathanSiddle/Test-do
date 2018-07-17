@@ -1,3 +1,3 @@
 export class SideBarItem {
-    constructor(public title: string, public Description: string) {}
+    constructor(public Title: string, public Description: string, public RouterPath: string) {}
 }

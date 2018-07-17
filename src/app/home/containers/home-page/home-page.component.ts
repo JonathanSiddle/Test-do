@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { SideBarItem } from './../../../shared/SideBarContent';
+import { SideBarContentService } from './../../../shared/services/sidebarContentService.service';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 
 @Component({
   selector: 'app-home-page',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor() { }
+  public sideBarItems: SideBarItem[];
+  constructor(private sideBarContentService: SideBarContentService) { }
 
   ngOnInit() {
+    this.sideBarContentService.homeController = this;
   }
 
+  ngAfterContentChecked() {
+    this.sideBarItems = this.sideBarContentService.sideBarItems;
+  }
+  // sideBarItemsUpdated(updatedItems: SideBarItem[]) {
+    
+  //   console.log('Updated sidebar items' + updatedItems);
+  // }
 }
