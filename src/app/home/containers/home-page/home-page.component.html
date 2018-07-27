@@ -3,21 +3,18 @@
     <button type="button" mat-raised-button (click)="drawer.toggle();" color="accent">
       <mat-icon aria-label="toggle icon">menu</mat-icon>
     </button>
-    <span>Application Title</span>
+    <span style="margin-left: 30px;">Application Title</span>
   </mat-toolbar>
 
   <mat-sidenav-container class="full-height">
-    <mat-sidenav #drawer class="sideNav" mode="push" opened="true">
+    <mat-sidenav #drawer class="sideNav" mode="push" opened="false">
       <mat-nav-list>
         <mat-list-item [routerLink]="['/App/Projects']">
           <h2 mat-line>Home</h2>
         </mat-list-item>
-        <ng-container *ngFor="let sc of this.sideBarItems">
-            <mat-list-item [routerLink]="[sc.RouterPath]" >
-                <h2 mat-line>{{ sc.Title }}</h2>
-                <span mat-line>{{ sc.Description }}</span>
-              </mat-list-item> 
-        </ng-container>
+        <mat-list-item [routerLink]="['/App/SharedProjects']">
+          <h2 mat-line>Shared Projects</h2>
+        </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
 

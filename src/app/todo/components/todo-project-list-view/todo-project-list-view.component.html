@@ -1,12 +1,9 @@
-<!-- <p>Projects</p>
-<p *ngFor="let p of this.projects">
-    <a routerLink="/App/Todo">{{ p.Name }} -- Owner({{ p.Owner }})</a>
-</p> -->
+
 <table mat-table [dataSource]="this.projects" class="mat-elevation-z8 full-width">
     <ng-container matColumnDef="Name">
         <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 70%'"> Name </mat-header-cell>
         <mat-cell *matCellDef="let project" [style.flex]="'0 0 70%'">
-            <a [routerLink]="['/App/Todo', project.id]"> {{ project.Name }} </a>
+            <a [routerLink]="['/App/Projects', project.id, 'Lists']"> {{ project.Name }} </a>
         </mat-cell>
     </ng-container>
 

@@ -1,11 +1,11 @@
 import { DataService } from './data.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ToDoList } from '../models/todoList';
+import { ProjectLists } from '../models/projectLists';
 
 @Injectable()
-export class ToDoListService extends DataService<ToDoList> {
+export class ProjectListsService extends DataService<ProjectLists> {
     constructor(protected http: HttpClient) {
-        super('ToDoLists', http);
+        super('ProjectLists', http);
     }
 }

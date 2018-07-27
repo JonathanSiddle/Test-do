@@ -1,4 +1,3 @@
-import { SideBarContentService } from './shared/services/sidebarContentService.service';
 import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -7,10 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -20,7 +18,6 @@ import { HttpClientModule } from '@angular/common/http';
     HomeModule
   ],
   providers: [
-    SideBarContentService
   ],
   bootstrap: [AppComponent]
 })

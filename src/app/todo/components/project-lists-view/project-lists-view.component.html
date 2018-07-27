@@ -1,0 +1,17 @@
+<table mat-table [dataSource]="this.projectLists.Lists" class="mat-elevation-z8 full-width">
+
+  <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 70%'"> Name </mat-header-cell>
+      <mat-cell *matCellDef="let list" [style.flex]="'0 0 70%'">
+          <a [routerLink]="['/App/Projects',this.projectId, 'Todo', list.id]"> {{ list.Name }} </a>
+      </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Owner">
+      <mat-header-cell *matHeaderCellDef> Owner </mat-header-cell>
+      <mat-cell *matCellDef="let list"> {{ list.Owner }} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row class="tableRow" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</table>

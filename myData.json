@@ -19,43 +19,77 @@
       "Tags": ["Personal", "Shopping", "Programming"]
     }
   ],
-  "ToDoLists": [
+  "ProjectLists": [
     {
       "id": 1,
-      "Name": "Personal to-do list",
-      "Owner": "Jonathan",
-      "Items": [
+      "Lists": [
         {
           "id": 1,
-          "Name": "Pick-up veg",
-          "Complete": false
+          "Name": "Shopping",
+          "Owner": "Jonathan",
+          "Items": [
+            {
+              "id": 1,
+              "Name": "Pick-up veg",
+              "Complete": false
+            },
+            {
+              "id": 2,
+              "Name": "Buy a tiny stegosaurus",
+              "Complete": true
+            }
+          ]
         },
         {
           "id": 2,
-          "Name": "Buy a tiny stegosaurus",
-          "Complete": true
+          "Name": "Projects",
+          "Owner": "Jonathan",
+          "Items": [
+            {
+              "id": 3,
+              "Name": "Complete to do list app",
+              "Complete": false
+            },
+            {
+              "id": 4,
+              "Name": "Start a new project",
+              "Complete": true
+            }
+          ]
         }
       ]
     },
     {
       "id": 2,
-      "Name": "Work to-do list",
-      "Owner": "Jonathan",
-      "Items": [
+      "Lists": [
         {
-          "id": 3,
-          "Name": "Finish todo application",
-          "Complete": false
+          "id": 1,
+          "Name": "Work",
+          "Owner": "Jonathan",
+          "Items": [
+            {
+              "id": 1,
+              "Name": "Write daily report",
+              "Complete": false
+            },
+            {
+              "id": 2,
+              "Name": "Tidy desk",
+              "Complete": true
+            }
+          ]
         },
         {
-          "id": 4,
-          "Name": "Finish testing the application",
-          "Complete": true
-        },
-        {
-          "id": 5,
-          "Name": "Document changes",
-          "Complete": false
+          "id": 2,
+          "Name": "Projects",
+          "Owner": "Jonathan",
+          "Items": [
+            {
+              "id": 3,
+              "Name": "Complete to do list app",
+              "Complete": false
+            }
+          ]
         }
       ]
     }

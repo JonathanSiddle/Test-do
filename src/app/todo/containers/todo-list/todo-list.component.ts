@@ -1,10 +1,10 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { ToDoItem } from './../../../shared/models/todoItem';
+import { ProjectListsService } from '../../../shared/services/projectLists.service';
+import { ProjectLists } from './../../../shared/models/projectLists';
+import { Component, OnInit, AfterViewChecked, AfterViewInit, OnChanges } from '@angular/core';
 import { ToDoList } from '../../../shared/models/todoList';
 import { Observable } from 'rxjs';
-import { ToDoListService } from '../../../shared/services/todoList.service';
 import { ActivatedRoute } from '@angular/router';
-import { SideBarContentService } from '../../../shared/services/sidebarContentService.service';
-import { SideBarItem } from '../../../shared/SideBarContent';
 
 @Component({
   selector: 'app-todo-list',
@@ -12,34 +12,37 @@ import { SideBarItem } from '../../../shared/SideBarContent';
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit {
-  private sideBarNav = Array<SideBarItem>(
-    new SideBarItem('To Do list Specific', 'An item set from to do list', 'App/SharedProjects')
-  );
+  public projectId: number;
+  public todoListId: number;
+  public toProjectLists$: Observable<ProjectLists>;
+  public projectLists: ProjectLists;
+  public todoListToDisplay: ToDoList;
 
-  public toDoList$: Observable<ToDoList>;
-  public toDoList: ToDoList;
-
-  constructor(private toDoListService: ToDoListService,
-              private _Activatedroute: ActivatedRoute,
-              private sidebarContentService: SideBarContentService) { }
+  constructor(private projectListsService: ProjectListsService,
+              private _Activatedroute: ActivatedRoute) { }
 
   ngOnInit() {
-    const id = this._Activatedroute.snapshot.params['id'];
-    this.toDoList$ = this.toDoListService.getOne(id);
-    this.toDoList$.subscribe(
+    console.log('Trying to get project lists');
+    this.projectId = this._Activatedroute.snapshot.params['id1'];
+    this.todoListId = this._Activatedroute.snapshot.params['id2'];
+    console.log(this.projectId + ',' + this.todoListId);
+    this.toProjectLists$ = this.projectListsService.getOne(this.projectId);
+    this.toProjectLists$.subscribe(
       returnedToDoList => {
-        this.toDoList = returnedToDoList;
-        // console.dir(this.toDoList);
+        this.projectLists = returnedToDoList;
+        console.log('got list!');
+        const lists = this.projectLists.Lists;
+        // TODO: fix why === does not work with numbers, at least all vars seem to be numbers
+        this.todoListToDisplay = lists.find(tl => tl.id.toString() === this.todoListId.toString());
       },
       error => {
-        // do something with this error...
+        console.log('Hit to do list error block');
       }
     );
-    this.sideBarNav.push(new SideBarItem('Specific to this list', 'specific to list' + id, 'App/SharedProjects'));
   }
 
-  ngAfterViewChecked() {
-    this.sidebarContentService.sideBarItems = this.sideBarNav;
-  }
+  addedNewItem($event: ToDoItem) {
 
+    console.log($event);
+  }
 }
