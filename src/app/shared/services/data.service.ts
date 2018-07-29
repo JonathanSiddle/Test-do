@@ -21,7 +21,7 @@ export class DataService <T> {
     return this.http.get<Array<T>>(this.fullUrl);
   }
 
-  getOne(id: Number): Observable<T> {
+  getOne(id: number): Observable<T> {
     // const headers = new Headers();
     // headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     // const options = new RequestOptions({headers: headers});
@@ -41,9 +41,14 @@ export class DataService <T> {
     return this.http.post<T>(this.fullUrl, JSON.stringify(resource), httpOptions);
   }
 
-  // update(resource) {
-  //   return this.http.patch(this.fullUrl + '/' + resource.id, JSON.stringify({ isRead: true }));
-  // }
+  update(resource: T, id: number): Observable<T> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      })
+    };
+    return this.http.patch<T>(this.fullUrl + '/' + id, JSON.stringify(resource), httpOptions);
+  }
 
   // delete(id) {
   //   return this.http.delete(this.fullUrl + '/' + id);

@@ -2,5 +2,7 @@
 *ngIf="this.projectLists" 
 [toDoList]="this?.todoListToDisplay"
 [projectId]="this.projectId"
-(addedItem)="this.addedNewItem($event)">
+(addedItem)="this.addedNewItem($event)"
+(editItem)="this.editedProject($event)"
+(deleteItem)="this.deletedItem($event)">
 </app-todo-list-view>

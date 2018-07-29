@@ -1,18 +1,25 @@
 <form [formGroup]="this.form">
   <p>
     <mat-form-field>
-      <input matInput placeholder="New Item" formControlName="itemName" value="">
+      <input matInput (keyup.enter)="this.enterkeyPressed()" placeholder="New Item" formControlName="itemName" value="">
       <mat-hint>Unique, between 1 and 50 char</mat-hint>
     </mat-form-field>
   </p>
   <p>
-    <button type="button" mat-raised-button color="accent" style="margin-left: 30px;"
-    [disabled]="!this.isFormValid" (click)="this.clickedAddItem()">New Item</button>
+    <button type="button" mat-raised-button color="accent"
+    [disabled]="!this.isFormValid" (click)="this.clickedAddItem()">Save</button>
+    <button type="button" mat-raised-button color="accent" style="margin-left: 15px"
+    [hidden]="this.editingItem == null" (click)="this.clickedCancelButton()">Cancel</button>
   </p>
 </form>
 <h1> {{ this.toDoList.Name }} - {{ this.toDoList.Owner }}</h1>
 <ul>
-  <li *ngFor="let i of this.toDoList.Items">
-    {{ i.Name }} <input type="checkbox" name="i.id" value="i.id" [checked]="i.Complete">
+  <li style="list-style:none;margin:15px;" *ngFor="let i of this.toDoList.Items">
+    <input type="checkbox" name="i.id" value="i.id" [checked]="i.Complete"> 
+    <span> {{ i.Name }} </span>
+    <button type="button" mat-raised-button color="accent" style="margin-left: 10px;"
+    (click)="this.clickedEditItem(i.id)">Edit</button>
+    <button type="button" mat-raised-button color="accent" style="margin-left: 10px;"
+    (click)="this.clickedDeleteItem(i.id)">Delete</button>
   </li>
 </ul>

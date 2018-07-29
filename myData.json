@@ -4,19 +4,29 @@
       "id": 1,
       "Name": "Personal to-do list",
       "Owner": "Jonathan",
-      "Tags": ["Personal", "Shopping"]
+      "Tags": [
+        "Personal",
+        "Shopping"
+      ]
     },
     {
       "id": 2,
       "Name": "Work to-do list",
       "Owner": "Jonathan",
-      "Tags": ["Work", "Programming"]
+      "Tags": [
+        "Work",
+        "Programming"
+      ]
     },
     {
       "id": 3,
       "Name": "Random remaining to-dos",
       "Owner": "Jonathan",
-      "Tags": ["Personal", "Shopping", "Programming"]
+      "Tags": [
+        "Personal",
+        "Shopping",
+        "Programming"
+      ]
     }
   ],
   "ProjectLists": [
@@ -30,13 +40,23 @@
           "Items": [
             {
               "id": 1,
-              "Name": "Pick-up veg",
+              "Name": "Bread",
               "Complete": false
             },
             {
               "id": 2,
-              "Name": "Buy a tiny stegosaurus",
-              "Complete": true
+              "Name": "Soy Milk",
+              "Complete": false
+            },
+            {
+              "id": 3,
+              "Name": "Falafel",
+              "Complete": false
+            },
+            {
+              "id": 4,
+              "Name": "Wraps",
+              "Complete": false
             }
           ]
         },

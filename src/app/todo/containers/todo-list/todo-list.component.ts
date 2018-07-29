@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit {
+
   public projectId: number;
   public todoListId: number;
   public toProjectLists$: Observable<ProjectLists>;
@@ -42,7 +43,39 @@ export class TodoListComponent implements OnInit {
   }
 
   addedNewItem($event: ToDoItem) {
+    const todoList = this.projectLists.Lists.find(l => l.id.toString() === this.todoListId.toString());
+    todoList.Items.push($event);
 
-    console.log($event);
+    this.updateProjectList();
   }
+
+  editedProject($event: ToDoItem) {
+    console.dir($event);
+  }
+
+  deletedItem($event: number) {
+    const todoList = this.projectLists.Lists.find(l => l.id.toString() === this.todoListId.toString());
+    this.todoListToDisplay.Items = todoList.Items.filter(i => i.id.toString() !== $event.toString());
+
+    this.updateProjectList();
+  }
+
+  updateProjectList() {
+    this.toProjectLists$ = this.projectListsService.update(this.projectLists, this.projectId);
+    this.toProjectLists$.subscribe(
+      updatedProjectLists => {
+        console.log('updated project list');
+        console.dir(updatedProjectLists);
+        // set project list to the server value
+        this.projectLists = updatedProjectLists;
+        this.todoListToDisplay = this.projectLists.Lists.find(l => l.id.toString() === this.todoListId.toString());
+      },
+      error => {
+        console.log('Hit error');
+        console.dir(error);
+      }
+    );
+  }
+
+
 }
