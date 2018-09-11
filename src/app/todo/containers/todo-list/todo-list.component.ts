@@ -20,12 +20,12 @@ export class TodoListComponent implements OnInit {
   public todoListToDisplay: ToDoList;
 
   constructor(private projectListsService: ProjectListsService,
-              private _Activatedroute: ActivatedRoute) { }
+              private activatedroute: ActivatedRoute) { }
 
   ngOnInit() {
     console.log('Trying to get project lists');
-    this.projectId = this._Activatedroute.snapshot.params['id1'];
-    this.todoListId = this._Activatedroute.snapshot.params['id2'];
+    this.projectId = this.activatedroute.snapshot.params['id1'];
+    this.todoListId = this.activatedroute.snapshot.params['id2'];
     console.log(this.projectId + ',' + this.todoListId);
     this.toProjectLists$ = this.projectListsService.getOne(this.projectId);
     this.toProjectLists$.subscribe(

@@ -32,84 +32,73 @@
   "ProjectLists": [
     {
       "id": 1,
-      "Lists": [
-        {
-          "id": 1,
-          "Name": "Shopping",
-          "Owner": "Jonathan",
-          "Items": [
-            {
-              "id": 1,
-              "Name": "Bread",
-              "Complete": false
-            },
-            {
-              "id": 2,
-              "Name": "Soy Milk",
-              "Complete": false
-            },
-            {
-              "id": 3,
-              "Name": "Falafel",
-              "Complete": false
-            },
-            {
-              "id": 4,
-              "Name": "Wraps",
-              "Complete": false
-            }
-          ]
-        },
+      "Name": "Shopping",
+      "Owner": "Jonathan",
+      "ProjectId": 1,
+      "Items": [
         {
           "id": 2,
-          "Name": "Projects",
-          "Owner": "Jonathan",
-          "Items": [
-            {
-              "id": 3,
-              "Name": "Complete to do list app",
-              "Complete": false
-            },
-            {
-              "id": 4,
-              "Name": "Start a new project",
-              "Complete": true
-            }
-          ]
+          "Name": "Soy Milk",
+          "Complete": false
+        },
+        {
+          "id": 4,
+          "Name": "Wraps",
+          "Complete": false
         }
       ]
     },
     {
       "id": 2,
-      "Lists": [
+      "Name": "Projects",
+      "Owner": "Jonathan",
+      "ProjectId": 1,
+      "Items": [
+        {
+          "id": 3,
+          "Name": "Complete to do list app",
+          "Complete": false
+        },
+        {
+          "id": 4,
+          "Name": "Start a new project",
+          "Complete": true
+        },
+        {
+          "id": 3,
+          "Name": "TestItem",
+          "Complete": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "Name": "Work",
+      "Owner": "Jonathan",
+      "ProjectId": 2,
+      "Items": [
         {
           "id": 1,
-          "Name": "Work",
-          "Owner": "Jonathan",
-          "Items": [
-            {
-              "id": 1,
-              "Name": "Write daily report",
-              "Complete": false
-            },
-            {
-              "id": 2,
-              "Name": "Tidy desk",
-              "Complete": true
-            }
-          ]
+          "Name": "Write daily report",
+          "Complete": false
         },
         {
           "id": 2,
-          "Name": "Projects",
-          "Owner": "Jonathan",
-          "Items": [
-            {
-              "id": 3,
-              "Name": "Complete to do list app",
-              "Complete": false
-            }
-          ]
+          "Name": "Tidy desk",
+          "Complete": true
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "Name": "Projects",
+      "Owner": "Jonathan",
+      "ProjectId": 3,
+      "Items": [
+        {
+          "id": 3,
+          "Name": "Complete to do list app",
+          "Complete": false
         }
       ]
     }
