@@ -1,6 +1,5 @@
 import { ToDoItem } from './../../../shared/models/todoItem';
 import { ProjectListsService } from '../../../shared/services/projectLists.service';
-import { ProjectLists } from './../../../shared/models/projectLists';
 import { Component, OnInit, AfterViewChecked, AfterViewInit, OnChanges } from '@angular/core';
 import { ToDoList } from '../../../shared/models/todoList';
 import { Observable } from 'rxjs';
@@ -15,8 +14,6 @@ export class TodoListComponent implements OnInit {
 
   public projectId: number;
   public todoListId: number;
-  public toProjectLists$: Observable<ProjectLists>;
-  public projectLists: ProjectLists;
   public todoListToDisplay: ToDoList;
 
   constructor(private projectListsService: ProjectListsService,
@@ -27,14 +24,12 @@ export class TodoListComponent implements OnInit {
     this.projectId = this.activatedroute.snapshot.params['id1'];
     this.todoListId = this.activatedroute.snapshot.params['id2'];
     console.log(this.projectId + ',' + this.todoListId);
-    this.toProjectLists$ = this.projectListsService.getOne(this.projectId);
-    this.toProjectLists$.subscribe(
+    this.projectListsService.getOne(this.todoListId).subscribe(
       returnedToDoList => {
-        this.projectLists = returnedToDoList;
-        console.log('got list!');
-        const lists = this.projectLists.Lists;
+        console.log('Got todo list!');
+        console.dir(returnedToDoList);
         // TODO: fix why === does not work with numbers, at least all vars seem to be numbers
-        this.todoListToDisplay = lists.find(tl => tl.id.toString() === this.todoListId.toString());
+        this.todoListToDisplay = returnedToDoList;
       },
       error => {
         console.log('Hit to do list error block');
@@ -42,40 +37,39 @@ export class TodoListComponent implements OnInit {
     );
   }
 
-  addedNewItem($event: ToDoItem) {
-    const todoList = this.projectLists.Lists.find(l => l.id.toString() === this.todoListId.toString());
-    todoList.Items.push($event);
+  // addedNewItem($event: ToDoItem) {
+  //   todoList.Items.push($event);
 
-    this.updateProjectList();
-  }
+  //   this.updateProjectList();
+  // }
 
-  editedProject($event: ToDoItem) {
-    console.dir($event);
-  }
+  // editedProject($event: ToDoItem) {
+  //   console.dir($event);
+  // }
 
-  deletedItem($event: number) {
-    const todoList = this.projectLists.Lists.find(l => l.id.toString() === this.todoListId.toString());
-    this.todoListToDisplay.Items = todoList.Items.filter(i => i.id.toString() !== $event.toString());
+  // deletedItem($event: number) {
+  //   const todoList = this.projectLists.Lists.find(l => l.id.toString() === this.todoListId.toString());
+  //   this.todoListToDisplay.Items = todoList.Items.filter(i => i.id.toString() !== $event.toString());
 
-    this.updateProjectList();
-  }
+  //   this.updateProjectList();
+  // }
 
-  updateProjectList() {
-    this.toProjectLists$ = this.projectListsService.update(this.projectLists, this.projectId);
-    this.toProjectLists$.subscribe(
-      updatedProjectLists => {
-        console.log('updated project list');
-        console.dir(updatedProjectLists);
-        // set project list to the server value
-        this.projectLists = updatedProjectLists;
-        this.todoListToDisplay = this.projectLists.Lists.find(l => l.id.toString() === this.todoListId.toString());
-      },
-      error => {
-        console.log('Hit error');
-        console.dir(error);
-      }
-    );
-  }
+  // updateProjectList() {
+  //   this.toProjectLists$ = this.projectListsService.update(this.projectLists, this.projectId);
+  //   this.toProjectLists$.subscribe(
+  //     updatedProjectLists => {
+  //       console.log('updated project list');
+  //       console.dir(updatedProjectLists);
+  //       // set project list to the server value
+  //       this.projectLists = updatedProjectLists;
+  //       this.todoListToDisplay = this.projectLists.Lists.find(l => l.id.toString() === this.todoListId.toString());
+  //     },
+  //     error => {
+  //       console.log('Hit error');
+  //       console.dir(error);
+  //     }
+  //   );
+  // }
 
 
 }

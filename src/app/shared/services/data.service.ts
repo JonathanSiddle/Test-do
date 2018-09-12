@@ -25,6 +25,7 @@ export class DataService <T> {
     // const headers = new Headers();
     // headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     // const options = new RequestOptions({headers: headers});
+    console.log('Making request: ' + this.fullUrl + '/' + id);
     return this.http.get<T>(this.fullUrl + '/' + id);
   }
 

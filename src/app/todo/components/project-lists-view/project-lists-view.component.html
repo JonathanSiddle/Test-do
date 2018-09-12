@@ -1,9 +1,9 @@
-<table mat-table [dataSource]="this.projectLists.Lists" class="mat-elevation-z8 full-width">
+<table mat-table [dataSource]="this.projectLists" class="mat-elevation-z8 full-width">
 
   <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef [style.flex]="'0 0 70%'"> Name </mat-header-cell>
       <mat-cell *matCellDef="let list" [style.flex]="'0 0 70%'">
-          <a [routerLink]="['/App/Projects',this.projectId, 'Todo', list.id]"> {{ list.Name }} </a>
+          <a [routerLink]="['/App/Projects', this.projectId, 'Todo', list.id]"> {{ list.Name }} </a>
       </mat-cell>
   </ng-container>
 

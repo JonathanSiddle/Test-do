@@ -21,28 +21,27 @@ export class NewTodoListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('Trying to get project lists');
-    this.projectId = this._Activatedroute.snapshot.params['id'];
-    this.toProjectLists$ = this.projectListsService.getOne(this.projectId);
-    this.toProjectLists$.subscribe(
-      returnedToDoList => {
-        console.log('got response (new list)');
-        console.dir(returnedToDoList);
-        this.projectLists = returnedToDoList;
-      },
-      error => {
-      }
-    );
+    // console.log('Trying to get project lists');
+    // this.projectId = this._Activatedroute.snapshot.params['id'];
+    // this.projectListsService.getOne(this.projectId).subscribe(
+    //   returnedToDoList => {
+    //     console.log('got response (new list)');
+    //     console.dir(returnedToDoList);
+    //     this.projectLists = returnedToDoList;
+    //   },
+    //   error => {
+    //   }
+    // );
   }
 
-  updateDisplayList(id: number) {
-    const listToDisplay = this.projectLists.Lists.find(l => l.id === id);
-    console.log('list to display');
-    console.dir(listToDisplay);
-    return () => {
-      console.log('calling callback function');
-      console.dir(listToDisplay);
-      // this.todoListToDisplay = listToDisplay;
-    };
-  }
+  // updateDisplayList(id: number) {
+  //   const listToDisplay = this.projectLists.Lists.find(l => l.id === id);
+  //   console.log('list to display');
+  //   console.dir(listToDisplay);
+  //   return () => {
+  //     console.log('calling callback function');
+  //     console.dir(listToDisplay);
+  //     // this.todoListToDisplay = listToDisplay;
+  //   };
+  // }
 }

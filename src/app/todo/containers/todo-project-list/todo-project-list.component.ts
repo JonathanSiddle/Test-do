@@ -2,7 +2,7 @@ import { TodoProjectListViewComponent } from './../../components/todo-project-li
 import { Observable } from 'rxjs';
 import { ProjectService } from './../../../shared/services/projects.service';
 import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
-import { ToDoProject, getListOfTagsForProjects } from '../../../shared/models/todoProject';
+import { ToDoProject } from '../../../shared/models/todoProject';
 
 @Component({
   selector: 'app-todo-project-list',

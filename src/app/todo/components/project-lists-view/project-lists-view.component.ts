@@ -1,3 +1,4 @@
+import { ToDoList } from './../../../shared/models/todoList';
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectLists } from '../../../shared/models/projectLists';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProjectListsViewComponent implements OnInit {
 
-  @Input() projectLists: ProjectLists;
+  @Input() projectLists: ToDoList[];
   public projectId: number;
   public displayedColumns = ['Name', 'Owner'];
 
