@@ -16,8 +16,10 @@ describe('projectService', () => {
 
     it('get all should return a list of projects and be called once', () => {
 
-        const expectedProjects: ToDoProject[] = [{id: 1, Name: 'Test1', Owner: 'Jon', Tags: null},
-                            {id: 2, Name: 'Test2', Owner: 'Jon', Tags: null}];
+        const expectedProjects: ToDoProject[] = [
+            new ToDoProject(1, 'Test1', 'Jon', [''], null),
+            new ToDoProject(2, 'Test2', 'Jon', [''], null)
+        ];
 
         httpClientSpy.get.and.returnValue(of(expectedProjects));
         projectService.getAll().subscribe(

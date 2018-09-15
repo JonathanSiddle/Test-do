@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectLists } from '../../../shared/models/projectLists';
 import { Observable } from 'rxjs';
 import { ToDoList } from '../../../shared/models/todoList';
 import { ProjectListsService } from '../../../shared/services/projectLists.service';
@@ -14,7 +13,6 @@ import { ProjectService } from '../../../shared/services/projects.service';
 export class ProjectListsComponent implements OnInit {
 
   public projectId: number;
-  public toProjectLists$: Observable<ProjectLists>;
   public projectLists: ToDoList[];
 
   constructor(
@@ -34,5 +32,14 @@ export class ProjectListsComponent implements OnInit {
         console.dir(error);
       }
     );
+  }
+
+  clickedEditProject(projId: number) {
+  }
+
+  clickedDeleteProject(projId: number) {
+  }
+
+  clickedAddNewProject(projId: number) {
   }
 }

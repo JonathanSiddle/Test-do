@@ -2,5 +2,5 @@
   <input matInput placeholder="project name" [(ngModel)]="this.projectName">
 </mat-form-field>
 <div>
-    <button mat-raised-button [mat-dialog-close]="this.projectName" [disabled]="!this.isValid">Create</button>
+    <button mat-raised-button (click)="this.clickedSave()" [disabled]="!this.isValid">Save</button>
 </div>

@@ -1,6 +1,8 @@
 import { ToDoProject } from './../../models/todoProject';
 
-export interface ProjectDialogData {
-    projects: ToDoProject[];
-    newProjectName: string;
+export class ProjectDialogData {
+    constructor(
+    public projects: ToDoProject[],
+    public projectName: string,
+    public editMode: boolean) {}
 }

@@ -47,4 +47,25 @@ export class TodoProjectListComponent implements OnInit {
       }
     );
   }
+
+  editedProject($event: ToDoProject) { 
+    this.projectService.update($event, $event.id).subscribe(
+      editedProject => {
+
+      }
+    );
+  }
+
+  deletedProject($event: number) {
+    this.projectService.delete($event).subscribe(
+      deletedProject => {
+        const dpId = this.projects.findIndex(p => p.id.toString() === $event.toString());
+        console.log('deleted index: ' + dpId);
+        if (dpId > -1) {
+          this.projects.splice(dpId, 1);
+        }
+        this.projectListView.refreshData();
+      }
+    );
+  }
 }

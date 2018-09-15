@@ -1,3 +1,4 @@
+import { YesNoDialogComponent } from './../shared/dialogs/yes-no-dialog/yes-no-dialog.component';
 import { ProjectListsService } from './../shared/services/projectLists.service';
 import { RouterLink, RouterModule } from '@angular/router';
 import { SharedModule } from './../shared/shared.module';

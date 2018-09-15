@@ -1,3 +1,4 @@
+import { ProjectDialogData } from './../../../shared/dialogs/new-project-dialog/projectDialogData';
 import { MatDialog } from '@angular/material';
 import { of } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -19,7 +20,7 @@ export class MdDialogMock {
   // with an afterClosed method that allows to subscribe to the dialog result observable.
   open() {
     return {
-      afterClosed: () => of('projectNameTest')
+      afterClosed: () => of(new ProjectDialogData(null, 'projectNameTest', false))
     };
   }
 }
@@ -56,8 +57,9 @@ describe('TodoProjectListViewComponent', () => {
 
   it('should create a link for each project in list', () => {
     const expectedProjects: ToDoProject[] = [
-                    {id: 1, Name: 'Test1', Owner : 'Jon', Tags: null},
-                    {id: 2, Name: 'Test2', Owner : 'Jon', Tags: null}];
+      new ToDoProject(1, 'Test1', 'Jon', [''], null),
+      new ToDoProject(2, 'Test2', 'Jon', [''], null),
+    ];
     component.ngOnInit();
     component.projects = expectedProjects;
     fixture.detectChanges();
@@ -69,9 +71,9 @@ describe('TodoProjectListViewComponent', () => {
     // console.log(links.item(0).textContent);
     console.log(links.item(0).href);
     expect(links.item(0).textContent.trim()).toBe('Test1');
-    expect(links.item(0).href.endsWith('App/Todo/1')).toBeTruthy();
+    expect(links.item(0).href.endsWith('App/Projects/1/Lists')).toBeTruthy();
     expect(links.item(1).textContent.trim()).toBe('Test2');
-    expect(links.item(1).href.endsWith('App/Todo/2')).toBeTruthy();
+    expect(links.item(1).href.endsWith('App/Projects/2/Lists')).toBeTruthy();
   });
 
   it('should raise event when clickedAddNewProject is called and dialog returns values', () => {

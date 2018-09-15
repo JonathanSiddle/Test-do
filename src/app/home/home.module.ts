@@ -11,6 +11,7 @@ import { NewProjectDialogComponent } from '../shared/dialogs/new-project-dialog/
 import { SharedProjectListComponent } from '../todo/containers/shared-project-list/shared-project-list.component';
 import { NewTodoListComponent } from '../todo/containers/new-todo-list/new-todo-list.component';
 import { ProjectListsComponent } from '../todo/containers/project-lists/project-lists.component';
+import { YesNoDialogComponent } from '../shared/dialogs/yes-no-dialog/yes-no-dialog.component';
 
 const routes: Routes = [
   {path: 'App/Todo/:id/New', component: NewTodoListComponent},
@@ -23,14 +24,15 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, {enableTracing: true}),
+    RouterModule.forRoot(routes),
     // RouterModule.forRoot(routes),
     CommonModule,
     SharedModule,
     TodoModule
   ],
   entryComponents: [
-    NewProjectDialogComponent
+    NewProjectDialogComponent,
+    YesNoDialogComponent
   ],
   declarations: [
     HomePageComponent,

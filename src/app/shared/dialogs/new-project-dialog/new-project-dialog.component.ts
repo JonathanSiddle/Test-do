@@ -20,10 +20,20 @@ export class NewProjectDialogComponent implements OnInit {
   }
 
   constructor(public dialogRef: MatDialogRef<NewProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ToDoProject[]) {
-      this.projectList = data;
+    @Inject(MAT_DIALOG_DATA) public data: ProjectDialogData) {
+      this.projectList = data.projects;
+      if (data.editMode) {
+        console.log('EditMode, setting project name');
+        this.projectName = data.projectName;
+      }
     }
 
   ngOnInit() {
+  }
+
+  clickedSave() {
+    console.log('Hit dialog save!');
+    this.data.projectName = this.projectName;
+    this.dialogRef.close(this.data);
   }
 }

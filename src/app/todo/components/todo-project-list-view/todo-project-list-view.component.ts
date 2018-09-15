@@ -1,7 +1,9 @@
+import { ProjectDialogData } from './../../../shared/dialogs/new-project-dialog/projectDialogData';
 import { NewProjectDialogComponent } from './../../../shared/dialogs/new-project-dialog/new-project-dialog.component';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, SimpleChanges, OnChanges} from '@angular/core';
 import { ToDoProject } from '../../../shared/models/todoProject';
 import { MatDialog, MatTable } from '@angular/material';
+import { YesNoDialogComponent } from '../../../shared/dialogs/yes-no-dialog/yes-no-dialog.component';
 
 @Component({
   selector: 'app-todo-project-list-view',
@@ -12,8 +14,11 @@ export class TodoProjectListViewComponent implements OnInit {
 
   @ViewChild(MatTable) matTable: MatTable<ToDoProject>;
   @Input() public projects: Array<ToDoProject>;
+
   @Output() addedProject = new EventEmitter<string>();
-  public displayedColumns = ['Name', 'Owner'];
+  @Output() editProject = new EventEmitter<ToDoProject>();
+  @Output() deleteProject = new EventEmitter<number>();
+  public displayedColumns = ['Name', 'Owner', 'Edit'];
 
   constructor(private dialog: MatDialog) { }
 
@@ -22,11 +27,52 @@ export class TodoProjectListViewComponent implements OnInit {
 
   clickedAddNewProject() {
     // this.dialog.open(NewProjectDialogComponent, {data: {cProject: this.selectedProject}}).afterClosed().subscribe(
-    this.dialog.open(NewProjectDialogComponent, {data: this.projects}).afterClosed().subscribe(
-      projectName => {
+    const setData = new ProjectDialogData(this.projects, '', false);
+    this.dialog.open(NewProjectDialogComponent, {data: setData}).afterClosed().subscribe(
+      data  => {
+        const returnData = data as ProjectDialogData;
         // console.log(projectName);
-        if (projectName != null) {
-          this.raiseAddedProjectEvent(projectName);
+        if (returnData.projectName != null) {
+          this.raiseAddedProjectEvent(returnData.projectName);
+        }
+      }
+    );
+  }
+
+  clickedEditProject(projId: number) {
+    const editProject = this.projects.find(p => p.id.toString() === projId.toString());
+    const setData = new ProjectDialogData(this.projects, editProject.Name, true);
+    this.dialog.open(NewProjectDialogComponent, {data: setData}).afterClosed().subscribe(
+      data => {
+        if (data != null) {
+          const returnData = data as ProjectDialogData;
+          if (returnData.projectName != null) {
+            editProject.Name = returnData.projectName;
+            const updateProj = new ToDoProject(editProject.id,
+              returnData.projectName,
+              editProject.Owner,
+              editProject.Tags,
+              editProject.ProjectLists);
+            this.raiseEditProjectEvent(updateProj);
+          }
+        }
+      }
+    );
+  }
+
+  clickedDeleteProject(projId: number) {
+    const proj = this.projects.find(p => p.id.toString() === projId.toString());
+    const message = 'Are you sure you want to delete ' + proj.Name  + ', this can not be undone?';
+
+    console.log('CLicked delete project: ' + projId);
+    this.dialog.open(YesNoDialogComponent,
+      {data: message})
+    .afterClosed().subscribe(
+      returnData  => {
+        if (returnData) {
+          console.log('clicked yes!');
+          this.raiseDeleteProjectEvent(projId);
+        } else {
         }
       }
     );
@@ -39,5 +85,13 @@ export class TodoProjectListViewComponent implements OnInit {
 
   raiseAddedProjectEvent(projName: string) {
     this.addedProject.emit(projName);
+  }
+
+  raiseEditProjectEvent(proj: ToDoProject) {
+    this.editProject.emit(proj);
+  }
+
+  raiseDeleteProjectEvent(projId: number) {
+    this.deleteProject.emit(projId);
   }
 }

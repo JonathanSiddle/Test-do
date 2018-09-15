@@ -42,18 +42,23 @@ export class DataService <T> {
     return this.http.post<T>(this.fullUrl, JSON.stringify(resource), httpOptions);
   }
 
-  update(resource: T, id: number): Observable<T> {
+  update(resource: T, rID: number): Observable<T> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
       })
     };
-    return this.http.patch<T>(this.fullUrl + '/' + id, JSON.stringify(resource), httpOptions);
+    return this.http.patch<T>(this.fullUrl + '/' + rID, JSON.stringify(resource), httpOptions);
   }
 
-  // delete(id) {
-  //   return this.http.delete(this.fullUrl + '/' + id);
-  // }
+  delete(id: number): Observable<T> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      })
+    };
+    return this.http.delete<T>(this.fullUrl + '/' + id);
+  }
 
   // handleError(error: Response, dataService: DataService) {
 

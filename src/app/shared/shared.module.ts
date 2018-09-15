@@ -1,3 +1,5 @@
+import { YesNoDialogViewComponent } from './dialogs/yes-no-dialog-view/yes-no-dialog-view.component';
+import { YesNoDialogComponent } from './dialogs/yes-no-dialog/yes-no-dialog.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,11 +14,12 @@ import { FormsModule } from '../../../node_modules/@angular/forms';
     MaterialImportsModule,
     FormsModule
   ],
-  declarations: [NavBarComponent, NewProjectDialogComponent],
+  declarations: [NavBarComponent, NewProjectDialogComponent, YesNoDialogComponent, YesNoDialogViewComponent],
   exports: [
     MaterialImportsModule,
     // my components
     NavBarComponent,
+    YesNoDialogComponent
   ]
 })
 export class SharedModule { }

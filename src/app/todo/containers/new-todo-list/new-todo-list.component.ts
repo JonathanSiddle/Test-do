@@ -1,8 +1,8 @@
-import { ProjectLists } from './../../../shared/models/projectLists';
 import { ProjectListsService } from './../../../shared/services/projectLists.service';
 import { Component, OnInit, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ToDoList } from '../../../shared/models/todoList';
 
 @Component({
   selector: 'app-new-todo-list',
@@ -12,8 +12,7 @@ import { Observable } from 'rxjs';
 export class NewTodoListComponent implements OnInit {
 
   public projectId: number;
-  public toProjectLists$: Observable<ProjectLists>;
-  public projectLists: ProjectLists;
+  public projectLists: ToDoList;
 
   constructor(
     private _Activatedroute: ActivatedRoute,

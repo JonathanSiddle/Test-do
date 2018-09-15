@@ -1,4 +1,6 @@
 <app-todo-project-list-view 
   *ngIf="this.projects?.length > 0" 
   [projects]="this.projects"
-  (addedProject)="addedNewProject($event)"></app-todo-project-list-view>
+  (addedProject)="this.addedNewProject($event)"
+  (editProject)="this.editedProject($event)"
+  (deleteProject)="this.deletedProject($event)"></app-todo-project-list-view>
