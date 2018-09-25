@@ -4,7 +4,6 @@ import { ProjectService } from './../../../shared/services/projects.service';
 import { async, ComponentFixture, TestBed, fakeAsync, discardPeriodicTasks, tick } from '@angular/core/testing';
 import { TodoProjectListComponent } from './todo-project-list.component';
 import { ToDoProject } from '../../../shared/models/todoProject';
-import { asyncData } from '../../../../testing/shared/async-observable-helpers';
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import { of, timer } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
@@ -26,7 +25,6 @@ export class MockProjectListViewComponent extends TodoProjectListViewComponent {
        super(null);
     }
 }
-
 describe('TodoProjectListComponent', () => {
 
   let component: TodoProjectListComponent;
@@ -40,8 +38,8 @@ describe('TodoProjectListComponent', () => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post']);
     let projectServiceTest: ProjectService;
     projectServiceTest = new ProjectService(<any>httpClientSpy);
-    httpClientSpy.get.and.returnValue(asyncData(Array<ToDoProject>()));
-    httpClientSpy.post.and.returnValue(asyncData(ToDoProject));
+    httpClientSpy.get.and.returnValue(of(Array<ToDoProject>()));
+    httpClientSpy.post.and.returnValue(of(ToDoProject));
 
     TestBed.configureTestingModule({
       declarations: [ TodoProjectListComponent, MockProjectListViewComponent],
@@ -69,8 +67,8 @@ describe('TodoProjectListComponent', () => {
 
   it('should get projects after init', () => {
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject(1, 'Test1', 'Jon', [''], null),
-      new ToDoProject(2, 'Test2', 'Jon', [''], null),
+      new ToDoProject('Test1', 'Jon', [''], 1, null),
+      new ToDoProject('Test2', 'Jon', [''], 2, null),
     ];
     // override the existing http spy method with new data
     httpClientSpy.get.and.returnValue(of(expectedProjects));
@@ -83,8 +81,8 @@ describe('TodoProjectListComponent', () => {
 
   it('should get projects after init async(with delay)', fakeAsync(() => {
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject(3, 'Test3', 'Jon', [''], null),
-      new ToDoProject(4, 'Test4', 'Jon', [''], null),
+      new ToDoProject('Test3', 'Jon', [''], 3, null),
+      new ToDoProject('Test4', 'Jon', [''], 4, null),
     ];
     // override the existing http spy method with new data
     httpClientSpy.get.and.returnValue(timer(1000).pipe(mapTo(expectedProjects)));
@@ -100,8 +98,8 @@ describe('TodoProjectListComponent', () => {
 
   it('should set property of child component', fakeAsync(() => {
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject(5, 'Test5', 'Jon', [''], null),
-      new ToDoProject(6, 'Test6', 'Jon', [''], null),
+      new ToDoProject('Test5', 'Jon', [''], 5, null),
+      new ToDoProject('Test6', 'Jon', [''], 6, null),
     ];
     // override the existing http spy method with new data
     httpClientSpy.get.and.returnValue(of(expectedProjects));
@@ -122,8 +120,8 @@ describe('TodoProjectListComponent', () => {
 
   it('should only create child component after setting projects in host (async)', fakeAsync(() => {
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject(7, 'Test7', 'Jon', [''], null),
-      new ToDoProject(8, 'Test8', 'Jon', [''], null),
+      new ToDoProject('Test7', 'Jon', [''], 7, null),
+      new ToDoProject('Test8', 'Jon', [''], 8, null),
     ];
     // override the existing http spy method with new data
     httpClientSpy.get.and.returnValue(timer(1000).pipe(mapTo(expectedProjects)));
@@ -141,11 +139,11 @@ describe('TodoProjectListComponent', () => {
     // expect(false).toBeTruthy();
   }));
 
-  it('should called new project method after child fires event', () => {
+  it('should called new project method after chiires event', () => {
     // set-up
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject(9, 'Test9', 'Jon', [''], null),
-      new ToDoProject(10, 'Test10', 'Jon', [''], null),
+      new ToDoProject('Test9', 'Jon', [''], 9, null),
+      new ToDoProject('Test10', 'Jon', [''], 10, null),
     ];
     httpClientSpy.get.and.returnValue(of(expectedProjects));
     component.ngOnInit();
@@ -166,10 +164,10 @@ describe('TodoProjectListComponent', () => {
   it('should send new Project to server and refresh data when addNewProject called', () => {
     // set-up
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject(9, 'Test9', 'Jon', [''], null),
-      new ToDoProject(10, 'Test10', 'Jon', [''], null),
+      new ToDoProject('Test9', 'Jon', [''], 9, null),
+      new ToDoProject('Test10', 'Jon', [''], 10, null),
     ];
-    const expectedProject = new ToDoProject(3, 'testProject', 'Jonathan');
+    const expectedProject = new ToDoProject('testProject', 'Jonathan', [], 3, []);
     httpClientSpy.get.and.returnValue(of(expectedProjects));
     httpClientSpy.post.and.returnValue(of(expectedProject));
     component.ngOnInit();

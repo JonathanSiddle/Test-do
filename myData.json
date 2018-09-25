@@ -1,32 +1,38 @@
 {
   "Projects": [
     {
-      "id": 1,
-      "Name": "Personal to-do list",
+      "Name": "Personal to-do list(updated)",
       "Owner": "Jonathan",
       "Tags": [
         "Personal",
         "Shopping"
-      ]
+      ],
+      "id": 1
     },
     {
-      "id": 2,
       "Name": "Work to-do list",
       "Owner": "Jonathan",
       "Tags": [
         "Work",
         "Programming"
-      ]
+      ],
+      "id": 2
     },
     {
-      "id": 3,
       "Name": "Random remaining to-dos",
       "Owner": "Jonathan",
       "Tags": [
         "Personal",
         "Shopping",
         "Programming"
-      ]
+      ],
+      "id": 3
+    },
+    {
+      "Name": "TestProj",
+      "Owner": "Jonathan",
+      "Tags": [],
+      "id": 4
     }
   ],
   "ProjectLists": [
@@ -34,73 +40,46 @@
       "id": 1,
       "Name": "Shopping",
       "Owner": "Jonathan",
-      "ProjectId": 1,
-      "Items": [
-        {
-          "id": 2,
-          "Name": "Soy Milk",
-          "Complete": false
-        },
-        {
-          "id": 4,
-          "Name": "Wraps",
-          "Complete": false
-        }
-      ]
+      "ProjectId": 1
     },
     {
       "id": 2,
       "Name": "Projects",
       "Owner": "Jonathan",
-      "ProjectId": 1,
-      "Items": [
-        {
-          "id": 3,
-          "Name": "Complete to do list app",
-          "Complete": false
-        },
-        {
-          "id": 4,
-          "Name": "Start a new project",
-          "Complete": true
-        },
-        {
-          "id": 3,
-          "Name": "TestItem",
-          "Complete": false
-        }
-      ]
+      "ProjectId": 1
     },
     {
       "id": 3,
       "Name": "Work",
       "Owner": "Jonathan",
-      "ProjectId": 2,
-      "Items": [
-        {
-          "id": 1,
-          "Name": "Write daily report",
-          "Complete": false
-        },
-        {
-          "id": 2,
-          "Name": "Tidy desk",
-          "Complete": true
-        }
-      ]
+      "ProjectId": 2
     },
     {
       "id": 4,
       "Name": "Projects",
       "Owner": "Jonathan",
-      "ProjectId": 3,
-      "Items": [
-        {
-          "id": 3,
-          "Name": "Complete to do list app",
-          "Complete": false
-        }
-      ]
+      "ProjectId": 3
+    },
+    {
+      "Name": "List1",
+      "Owner": "Jonathan",
+      "ProjectId": 4,
+      "id": 5
+    },
+    {
+      "Name": "List2",
+      "Owner": "Jonathan",
+      "Items": [],
+      "ProjectId": 4,
+      "id": 6
+    }
+  ],
+  "ListItems": [
+    {
+      "Name": "Item1",
+      "Complete": false,
+      "ProjectListId": 5,
+      "id": 1
     }
   ]
 }

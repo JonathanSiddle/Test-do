@@ -31,9 +31,8 @@ export class TodoProjectListComponent implements OnInit {
     );
   }
 
-  addedNewProject(event) {
-    const addIndex = this.projects.length + 1;
-    const newProj = new ToDoProject(addIndex, event, 'Jonathan');
+  addedNewProject($event: string) {
+    const newProj = new ToDoProject($event, 'Jonathan');
     console.log(newProj);
     // this.addedProject$ = this.projectService.create(new ToDoProject(addIndex, event, 'Jonathan'));
     this.projectService.create(newProj).subscribe(
@@ -51,7 +50,6 @@ export class TodoProjectListComponent implements OnInit {
   editedProject($event: ToDoProject) { 
     this.projectService.update($event, $event.id).subscribe(
       editedProject => {
-
       }
     );
   }

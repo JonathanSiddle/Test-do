@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ProjectListsViewComponent } from './../../components/project-lists-view/project-lists-view.component';
+import { ProjectListsService } from './../../../shared/services/projectLists.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ToDoList } from '../../../shared/models/todoList';
-import { ProjectListsService } from '../../../shared/services/projectLists.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../../shared/services/projects.service';
 
@@ -12,20 +13,23 @@ import { ProjectService } from '../../../shared/services/projects.service';
 })
 export class ProjectListsComponent implements OnInit {
 
+  @ViewChild(ProjectListsViewComponent) projectListView: ProjectListsViewComponent;
+
   public projectId: number;
   public projectLists: ToDoList[];
 
   constructor(
     private projectService: ProjectService,
-    private activatedroute: ActivatedRoute) { }
+    private activatedroute: ActivatedRoute,
+    private projectListService: ProjectListsService) { }
 
   ngOnInit() {
     console.log('Trying to get project lists');
     this.projectId = this.activatedroute.snapshot.params['id'];
     this.projectService.getOne(this.projectId).subscribe(
       returnedProject => {
-        console.dir(returnedProject);
         this.projectLists = returnedProject.ProjectLists;
+        console.dir(this.projectLists);
       },
       error => {
         console.log('Hit error block');
@@ -34,12 +38,33 @@ export class ProjectListsComponent implements OnInit {
     );
   }
 
-  clickedEditProject(projId: number) {
+  clickedEditList(listId: number) {
   }
 
-  clickedDeleteProject(projId: number) {
+  clickedDeleteList(listId: number) {
+    this.projectListService.delete(listId).subscribe(
+      deleted => {
+        const dpId = this.projectLists.findIndex(p => p.id.toString() === listId.toString());
+        console.log('deleted index: ' + dpId);
+        if (dpId > -1) {
+          this.projectLists.splice(dpId, 1);
+          this.projectListView.refreshData();
+        }
+      },
+      error => {
+      }
+    );
   }
 
-  clickedAddNewProject(projId: number) {
+  clickedAddNewList($event: ToDoList) {
+    this.projectListService.create($event).subscribe(
+      returnedList => {
+        this.projectLists.push(returnedList);
+        this.projectListView.refreshData();
+      },
+      error => {
+        console.dir(error);
+      }
+    );
   }
 }

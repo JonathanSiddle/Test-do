@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
 import { ToDoProject } from '../../../shared/models/todoProject';
 
+let returnData = new ProjectDialogData(null, 'Test Proj1', false);
 @Component({
     template: ''
 })
@@ -20,7 +21,7 @@ export class MdDialogMock {
   // with an afterClosed method that allows to subscribe to the dialog result observable.
   open() {
     return {
-      afterClosed: () => of(new ProjectDialogData(null, 'projectNameTest', false))
+      afterClosed: () => of(returnData)
     };
   }
 }
@@ -57,8 +58,8 @@ describe('TodoProjectListViewComponent', () => {
 
   it('should create a link for each project in list', () => {
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject(1, 'Test1', 'Jon', [''], null),
-      new ToDoProject(2, 'Test2', 'Jon', [''], null),
+      new ToDoProject('Test1', 'Jon', [''], 1, null),
+      new ToDoProject('Test2', 'Jon', [''], 2, null),
     ];
     component.ngOnInit();
     component.projects = expectedProjects;
@@ -87,6 +88,75 @@ describe('TodoProjectListViewComponent', () => {
     expect(raiseEventSpy).toHaveBeenCalled();
     expect(raiseEventSpy).toHaveBeenCalledTimes(1);
     expect(raiseEventSpy).toHaveBeenCalledWith('projectNameTest');
+    // expect(false).toBeTruthy();
+  });
+
+  it('should raise event when clickedEditProject is called and dialog returns values', () => {
+
+    const expectedProject = new ToDoProject('Test1(Updated)', 'Jon', [''], 1);
+
+    returnData = new ProjectDialogData(null, 'Test1(Updated)', false);
+    const sampleProjects: ToDoProject[] = [
+      new ToDoProject('Test1', 'Jon', [''], 1),
+      new ToDoProject('Test2', 'Jon', [''], 2),
+    ];
+    component.projects = sampleProjects;
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const raiseEventSpy = spyOn(component, 'raiseEditProjectEvent');
+
+    component.clickedEditProject(1);
+
+    expect(raiseEventSpy).toHaveBeenCalled();
+    expect(raiseEventSpy).toHaveBeenCalledTimes(1);
+    expect(raiseEventSpy).toHaveBeenCalledWith(expectedProject);
+    // expect(false).toBeTruthy();
+  });
+
+  it('should raise delete event when clickedEditDelete project is called and dialog returns value', () => {
+
+    const expectedProject = new ToDoProject('Test1(Updated)', 'Jon', [''], 1);
+
+    // any value will do here
+    returnData = new ProjectDialogData(null, 'Test1(Updated)', false);
+    const sampleProjects: ToDoProject[] = [
+      new ToDoProject('Test1', 'Jon', [''], 1),
+      new ToDoProject('Test2', 'Jon', [''], 2),
+    ];
+    component.projects = sampleProjects;
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const raiseEventSpy = spyOn(component, 'raiseDeleteProjectEvent');
+
+    component.clickedDeleteProject(1);
+
+    expect(raiseEventSpy).toHaveBeenCalled();
+    expect(raiseEventSpy).toHaveBeenCalledTimes(1);
+    expect(raiseEventSpy).toHaveBeenCalledWith(1);
+    // expect(false).toBeTruthy();
+  });
+
+  it('should NOT raise delete event when clickedEditDelete and dialog DOES NOT return value', () => {
+
+    const expectedProject = new ToDoProject('Test1(Updated)', 'Jon', [''], 1);
+
+    // any value will do here
+    returnData = null;
+    const sampleProjects: ToDoProject[] = [
+      new ToDoProject('Test1', 'Jon', [''], 1),
+      new ToDoProject('Test2', 'Jon', [''], 2),
+    ];
+    component.projects = sampleProjects;
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const raiseEventSpy = spyOn(component, 'raiseDeleteProjectEvent');
+
+    component.clickedDeleteProject(1);
+
+    expect(raiseEventSpy).toHaveBeenCalledTimes(0);
     // expect(false).toBeTruthy();
   });
 });

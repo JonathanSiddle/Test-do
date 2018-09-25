@@ -28,7 +28,7 @@ export class TodoListComponent implements OnInit {
       returnedToDoList => {
         console.log('Got todo list!');
         console.dir(returnedToDoList);
-        // TODO: fix why === does not work with numbers, at least all vars seem to be numbers
+
         this.todoListToDisplay = returnedToDoList;
       },
       error => {

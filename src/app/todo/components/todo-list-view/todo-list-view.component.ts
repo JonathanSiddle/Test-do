@@ -31,11 +31,13 @@ export class TodoListViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.dir(this.toDoList);
+
     this.itemName.setValidators([
       Validators.required,
       Validators.minLength(1),
       Validators.maxLength(50),
-      existsInListValidator(this.toDoList.Items.map(i => i.Name.trim()))
+      existsInListValidator(this.toDoList.ListItems.map(i => i.Name.trim()))
     ]);
     console.dir(this.toDoList);
   }
@@ -55,19 +57,19 @@ export class TodoListViewComponent implements OnInit {
   }
 
   clickedAddItem() {
-    console.dir(this.editingItem);
-    if (this.editingItem != null) {
-      console.log('Raising edit event');
-      this.editItem.emit(this.editingItem);
-    } else {
-      console.log('Adding with id: ' + (this.toDoList.Items.length + 1));
-      this.addedItem.emit(new ToDoItem(this.toDoList.Items.length + 1, this.itemName.value, false));
-    }
+    // console.dir(this.editingItem);
+    // if (this.editingItem != null) {
+    //   console.log('Raising edit event');
+    //   this.editItem.emit(this.editingItem);
+    // } else {
+    //   console.log('Adding with id: ' + (this.toDoList.Items.length + 1));
+    //   this.addedItem.emit(new ToDoItem(this.toDoList.Items.length + 1, this.itemName.value, false));
+    // }
 
-    this.editingItem = null;
-    this.itemName.setValue('');
-    this.itemName.markAsPristine();
-    this.form.reset();
+    // this.editingItem = null;
+    // this.itemName.setValue('');
+    // this.itemName.markAsPristine();
+    // this.form.reset();
   }
 
   clickedCancelButton() {
@@ -75,8 +77,8 @@ export class TodoListViewComponent implements OnInit {
   }
 
   clickedEditItem(id: number) {
-    this.editingItem = this.toDoList.Items.find(i => i.id.toString() === id.toString());
-    this.itemName.setValue(this.editingItem.Name);
+    // this.editingItem = this.toDoList.Items.find(i => i.id.toString() === id.toString());
+    // this.itemName.setValue(this.editingItem.Name);
   }
 
   clickedDeleteItem(itemId: number) {

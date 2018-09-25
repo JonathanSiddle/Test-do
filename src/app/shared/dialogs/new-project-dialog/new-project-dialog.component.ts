@@ -11,20 +11,20 @@ import { FormControl, FormGroup, Validators  } from '@angular/forms';
 })
 export class NewProjectDialogComponent implements OnInit {
 
-  public projectList = Array<ToDoProject>();
-  public projectName = '';
+  public existingNames = Array<string>();
+  public name = '';
 
   get isValid() {
-    return (this.projectName.trim().length > 0 &&
-      this.projectList.filter(tdp => tdp.Name.trim() === this.projectName.trim()).length === 0);
+    return (this.name.trim().length > 0 &&
+      this.existingNames.filter(tdp => tdp.trim() === this.name.trim()).length === 0);
   }
 
   constructor(public dialogRef: MatDialogRef<NewProjectDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProjectDialogData) {
-      this.projectList = data.projects;
+      this.existingNames = data.existingNames;
       if (data.editMode) {
         console.log('EditMode, setting project name');
-        this.projectName = data.projectName;
+        this.name = data.projectName;
       }
     }
 
@@ -33,7 +33,7 @@ export class NewProjectDialogComponent implements OnInit {
 
   clickedSave() {
     console.log('Hit dialog save!');
-    this.data.projectName = this.projectName;
+    this.data.projectName = this.name;
     this.dialogRef.close(this.data);
   }
 }

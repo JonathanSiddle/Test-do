@@ -1,6 +1,7 @@
 export class ToDoItem {
     constructor(
-        public id: Number = 0,
         public Name: string = '',
-        public Complete: boolean = false) {}
+        public Complete: boolean = false,
+        public ProjectListId: number,
+        public id?: Number) {}
 }

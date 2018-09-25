@@ -1,9 +1,15 @@
-<div fxLayout="column" fxFlex class="full-height">
+<div class="main-wrapper">
   <mat-toolbar color="primary" class="mat-elevation-z8" style="z-index: 100!important;">
     <button type="button" mat-raised-button (click)="drawer.toggle();" color="accent">
       <mat-icon aria-label="toggle icon">menu</mat-icon>
     </button>
-    <span style="margin-left: 30px;">Application Title</span>
+    <h1 class="title" fxFlex="60">
+      TestDo
+    </h1>
+    <span class="spacer"></span>
+    <button mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
   </mat-toolbar>
 
   <mat-sidenav-container class="full-height">
@@ -18,7 +24,7 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content class="full-height full-width main-content">
+    <mat-sidenav-content class="main-content">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

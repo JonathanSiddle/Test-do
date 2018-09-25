@@ -27,7 +27,7 @@ export class TodoProjectListViewComponent implements OnInit {
 
   clickedAddNewProject() {
     // this.dialog.open(NewProjectDialogComponent, {data: {cProject: this.selectedProject}}).afterClosed().subscribe(
-    const setData = new ProjectDialogData(this.projects, '', false);
+    const setData = new ProjectDialogData(this.projects.map(p => p.Name), '', false);
     this.dialog.open(NewProjectDialogComponent, {data: setData}).afterClosed().subscribe(
       data  => {
         const returnData = data as ProjectDialogData;
@@ -41,18 +41,18 @@ export class TodoProjectListViewComponent implements OnInit {
 
   clickedEditProject(projId: number) {
     const editProject = this.projects.find(p => p.id.toString() === projId.toString());
-    const setData = new ProjectDialogData(this.projects, editProject.Name, true);
+    const setData = new ProjectDialogData(this.projects.map(p => p.Name), editProject.Name, true);
     this.dialog.open(NewProjectDialogComponent, {data: setData}).afterClosed().subscribe(
       data => {
         if (data != null) {
           const returnData = data as ProjectDialogData;
           if (returnData.projectName != null) {
             editProject.Name = returnData.projectName;
-            const updateProj = new ToDoProject(editProject.id,
+            const updateProj = new ToDoProject(
               returnData.projectName,
               editProject.Owner,
               editProject.Tags,
-              editProject.ProjectLists);
+              editProject.id);
             this.raiseEditProjectEvent(updateProj);
           }
         }
