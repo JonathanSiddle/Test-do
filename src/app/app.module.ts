@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
+import { ProjectService } from './shared/services/projects.service';
+import { ProjectListsService } from './shared/services/projectLists.service';
+import { ToDoItemService } from './shared/services/toDoItem.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
     HomeModule
   ],
   providers: [
+    ProjectService,
+    ProjectListsService,
+    ToDoItemService
   ],
   bootstrap: [AppComponent]
 })

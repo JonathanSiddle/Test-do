@@ -1,5 +1,6 @@
 <app-todo-list-view 
 *ngIf="this.todoListToDisplay" 
 [toDoList]="this.todoListToDisplay"
-[projectId]="this.projectId">
-</app-todo-list-view>
+[projectId]="this.projectId"
+(addedItem)="this.addedNewItem($event)"
+></app-todo-list-view>

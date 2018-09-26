@@ -1,9 +1,11 @@
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, AfterViewChecked, AfterViewInit, OnChanges } from '@angular/core';
+
 import { ToDoItem } from './../../../shared/models/todoItem';
 import { ProjectListsService } from '../../../shared/services/projectLists.service';
-import { Component, OnInit, AfterViewChecked, AfterViewInit, OnChanges } from '@angular/core';
 import { ToDoList } from '../../../shared/models/todoList';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ToDoItemService } from 'src/app/shared/services/toDoItem.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -16,8 +18,11 @@ export class TodoListComponent implements OnInit {
   public todoListId: number;
   public todoListToDisplay: ToDoList;
 
+  public sendingData = false;
+
   constructor(private projectListsService: ProjectListsService,
-              private activatedroute: ActivatedRoute) { }
+              private activatedroute: ActivatedRoute,
+              private toDoItemService: ToDoItemService) { }
 
   ngOnInit() {
     console.log('Trying to get project lists');
@@ -37,11 +42,17 @@ export class TodoListComponent implements OnInit {
     );
   }
 
-  // addedNewItem($event: ToDoItem) {
-  //   todoList.Items.push($event);
+  addedNewItem($event: ToDoItem) {
 
-  //   this.updateProjectList();
-  // }
+    this.toDoItemService.create($event).subscribe(
+      item => {
+        this.todoListToDisplay.ListItems.push(item);
+      },
+      error => {
+        console.log('Error saving item');
+      }
+    );
+  }
 
   // editedProject($event: ToDoItem) {
   //   console.dir($event);
