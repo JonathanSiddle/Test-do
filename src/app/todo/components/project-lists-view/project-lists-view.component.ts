@@ -75,21 +75,20 @@ export class ProjectListsViewComponent implements OnInit {
   }
 
   clickedEditList(listId: number) {
-    const editProject = this.projectLists.find(p => p.id.toString() === listId.toString());
-    const setData = new ProjectDialogData(this.projectLists.map(p => p.Name), editProject.Name, true);
+    const eList = this.projectLists.find(p => p.id.toString() === listId.toString());
+    const setData = new ProjectDialogData(this.projectLists.map(p => p.Name), eList.Name, true);
 
     this.dialog.open(NewProjectDialogComponent, {data: setData}).afterClosed().subscribe(
       data => {
         if (data != null) {
           const returnData = data as ProjectDialogData;
           if (returnData.projectName != null) {
-            // editProject.Name = returnData.projectName;
-            // const updateProj = new ToDoProject(editProject.id,
-            //   returnData.projectName,
-            //   editProject.Owner,
-            //   editProject.Tags,
-            //   editProject.ProjectLists);
-            // this.raiseEditListEvent(updateProj);
+            const updateProj = new ToDoList(
+              returnData.projectName,
+              eList.Owner,
+              eList.ProjectId,
+              eList.id);
+            this.raiseEditListEvent(updateProj);
           }
         }
       }

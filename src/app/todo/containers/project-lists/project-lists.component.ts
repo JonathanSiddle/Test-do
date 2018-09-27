@@ -38,13 +38,23 @@ export class ProjectListsComponent implements OnInit {
     );
   }
 
-  clickedEditList(listId: number) {
+  clickedEditList($event: ToDoList) {
+    this.projectListService.update($event, $event.id).subscribe(
+      edited => {
+        const list = this.projectLists.find(p => p.id.toString() === $event.id.toString());
+        list.Name = edited.Name;
+        list.Owner = edited.Owner;
+        this.projectListView.refreshData();
+      },
+      error => {
+      }
+    );
   }
 
-  clickedDeleteList(listId: number) {
-    this.projectListService.delete(listId).subscribe(
+  clickedDeleteList($event: number) {
+    this.projectListService.delete($event).subscribe(
       deleted => {
-        const dpId = this.projectLists.findIndex(p => p.id.toString() === listId.toString());
+        const dpId = this.projectLists.findIndex(p => p.id.toString() === $event.toString());
         console.log('deleted index: ' + dpId);
         if (dpId > -1) {
           this.projectLists.splice(dpId, 1);

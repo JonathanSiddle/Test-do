@@ -3,5 +3,5 @@ export class ToDoItem {
         public Name: string = '',
         public Complete: boolean = false,
         public ProjectListId: number,
-        public id?: Number) {}
+        public id?: number) {}
 }

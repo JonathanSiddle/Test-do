@@ -8,17 +8,17 @@
   <p>
     <button type="button" mat-raised-button color="accent"
     [disabled]="!this.isFormValid" (click)="this.clickedSave()">Save</button>
-    <button type="button" mat-raised-button color="accent" style="margin-left: 15px"
-    [hidden]="this.editingItem == null" (click)="this.clickedCancelButton()">Cancel</button>
   </p>
 </form>
 <h1> {{ this.toDoList.Name }} - {{ this.toDoList.Owner }}</h1>
 <ul>
   <li style="list-style:none;margin:15px;" *ngFor="let i of this.toDoList.ListItems">
-    <input type="checkbox" name="i.id" value="i.id" [checked]="i.Complete"> 
+    <input type="checkbox" name="i.id" value="i.id" [checked]="i.Complete"
+      (click)="this.clickedCheckBox(i.id)"
+    > 
     <span> {{ i.Name }} </span>
-    <button type="button" mat-raised-button color="accent" style="margin-left: 10px;"
-    (click)="this.clickedEditItem(i.id)">Edit</button>
+    <!-- <button type="button" mat-raised-button color="accent" style="margin-left: 10px;"
+    (click)="this.clickedEditItem(i.id)">Edit</button> -->
     <button type="button" mat-raised-button color="accent" style="margin-left: 10px;"
     (click)="this.clickedDeleteItem(i.id)">Delete</button>
   </li>

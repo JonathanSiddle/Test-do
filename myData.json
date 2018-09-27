@@ -27,12 +27,6 @@
         "Programming"
       ],
       "id": 3
-    },
-    {
-      "Name": "TestProj",
-      "Owner": "Jonathan",
-      "Tags": [],
-      "id": 4
     }
   ],
   "ProjectLists": [
@@ -61,31 +55,30 @@
       "ProjectId": 3
     },
     {
-      "Name": "List1",
+      "Name": "TestList",
       "Owner": "Jonathan",
-      "ProjectId": 4,
+      "ProjectId": 3,
       "id": 5
-    },
-    {
-      "Name": "List2",
-      "Owner": "Jonathan",
-      "Items": [],
-      "ProjectId": 4,
-      "id": 6
     }
   ],
   "ListItems": [
     {
       "Name": "Item1",
       "Complete": false,
-      "ProjectListId": 5,
-      "id": 1
+      "ProjectListId": 1,
+      "id": 2
     },
     {
-      "Name": "Item2",
+      "Name": "TestProjToDo1",
       "Complete": false,
-      "ProjectListId": "4",
-      "id": 2
+      "ProjectListId": 2,
+      "id": 3
+    },
+    {
+      "Name": "Test5",
+      "Complete": false,
+      "ProjectListId": 1,
+      "id": 7
     }
   ]
 }

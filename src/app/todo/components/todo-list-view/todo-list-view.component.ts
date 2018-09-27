@@ -27,7 +27,6 @@ export class TodoListViewComponent implements OnInit {
       Validators.maxLength(50)
     ]),
   });
-  public editingItem: ToDoItem = null;
 
   constructor() { }
 
@@ -53,41 +52,60 @@ export class TodoListViewComponent implements OnInit {
 
   enterkeyPressed() {
     if (this.isFormValid) {
-      this.clickedSave();
+      this.clickedSave(null);
     }
   }
 
-  clickedSave() {
-    if (this.editingItem) {
+  clickedSave(item: ToDoItem) {
+    if (item) {
       // create new item then update when
       // confirmed with server
       const newEditItem = new ToDoItem(
-        this.itemName.value,
-        this.editingItem.Complete,
-        this.editingItem.ProjectListId,
-        this.editingItem.id);
+        item.Name,
+        item.Complete,
+        item.ProjectListId,
+        item.id);
 
         console.log('Raising edit event');
-        this.editItem.emit(newEditItem);
+        this.raiseEditEvent(newEditItem);
     } else {
-      const newItem = new ToDoItem(this.itemName.value, false, this.projectId);
+      const newItem = new ToDoItem(this.itemName.value, false, this.toDoList.id);
 
       console.log('Raising new event');
-      this.addedItem.emit(newItem);
+      this.raiseAddNewEvent(newItem);
     }
+
+    this.itemName.reset();
+  }
+
+  clickedCheckBox(itemId: number) {
+    const item = this.toDoList.ListItems.find(i => i.id.toString() === itemId.toString());
+    item.Complete = !item.Complete; // flip value
+    this.clickedSave(item);
   }
 
   clickedCancelButton() {
-    this.editingItem = null;
     this.itemName.reset();
   }
 
   clickedEditItem(id: number) {
-    this.editingItem = this.toDoList.ListItems.find(i => i.id.toString() === id.toString());
-    this.itemName.setValue(this.editingItem.Name);
+    const item = this.toDoList.ListItems.find(i => i.id.toString() === id.toString());
   }
 
   clickedDeleteItem(itemId: number) {
+    console.log('Clicked delete:' + itemId);
+    this.raiseDeleteEvent(itemId);
+  }
+
+  raiseEditEvent(toDoItem: ToDoItem) {
+    this.editItem.emit(toDoItem);
+  }
+
+  raiseAddNewEvent(toDoItem: ToDoItem) {
+    this.addedItem.emit(toDoItem);
+  }
+
+  raiseDeleteEvent(itemId: number) {
     this.deleteItem.emit(itemId);
   }
 }

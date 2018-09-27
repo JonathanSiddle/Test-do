@@ -12,7 +12,6 @@ import { TodoListComponent } from './containers/todo-list/todo-list.component';
 import { TodoListViewComponent } from './components/todo-list-view/todo-list-view.component';
 import { FormsModule, ReactiveFormsModule } from '../../../node_modules/@angular/forms';
 import { SharedProjectListComponent } from './containers/shared-project-list/shared-project-list.component';
-import { NewTodoListComponent } from './containers/new-todo-list/new-todo-list.component';
 import { ProjectListsComponent } from './containers/project-lists/project-lists.component';
 import { ProjectListsViewComponent } from './components/project-lists-view/project-lists-view.component';
 import { ToDoItemService } from '../shared/services/toDoItem.service';
@@ -31,7 +30,6 @@ import { ToDoItemService } from '../shared/services/toDoItem.service';
     TodoListComponent,
     TodoListViewComponent,
     SharedProjectListComponent,
-    NewTodoListComponent,
     ProjectListsComponent,
     ProjectListsViewComponent
   ],

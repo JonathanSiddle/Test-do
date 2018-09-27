@@ -139,7 +139,7 @@ describe('TodoProjectListComponent', () => {
     // expect(false).toBeTruthy();
   }));
 
-  it('should called new project method after chiires event', () => {
+  it('should called new project method after child event', () => {
     // set-up
     const expectedProjects: ToDoProject[] = [
       new ToDoProject('Test9', 'Jon', [''], 9, null),

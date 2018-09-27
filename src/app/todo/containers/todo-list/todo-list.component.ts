@@ -43,9 +43,9 @@ export class TodoListComponent implements OnInit {
   }
 
   addedNewItem($event: ToDoItem) {
-
     this.toDoItemService.create($event).subscribe(
       item => {
+        console.log('Saved data!');
         this.todoListToDisplay.ListItems.push(item);
       },
       error => {
@@ -54,33 +54,29 @@ export class TodoListComponent implements OnInit {
     );
   }
 
-  // editedProject($event: ToDoItem) {
-  //   console.dir($event);
-  // }
+  editedItem($event: ToDoItem) {
+    const editedItem = this.todoListToDisplay.ListItems.find(i => i.id.toString() === $event.id.toString());
+    this.toDoItemService.update($event, $event.id).subscribe(
+      item => {
+        editedItem.Name = item.Name;
+        editedItem.Complete = item.Complete;
+      },
+      error => {
+        console.log('Error updating item');
+      }
+    );
+  }
 
-  // deletedItem($event: number) {
-  //   const todoList = this.projectLists.Lists.find(l => l.id.toString() === this.todoListId.toString());
-  //   this.todoListToDisplay.Items = todoList.Items.filter(i => i.id.toString() !== $event.toString());
-
-  //   this.updateProjectList();
-  // }
-
-  // updateProjectList() {
-  //   this.toProjectLists$ = this.projectListsService.update(this.projectLists, this.projectId);
-  //   this.toProjectLists$.subscribe(
-  //     updatedProjectLists => {
-  //       console.log('updated project list');
-  //       console.dir(updatedProjectLists);
-  //       // set project list to the server value
-  //       this.projectLists = updatedProjectLists;
-  //       this.todoListToDisplay = this.projectLists.Lists.find(l => l.id.toString() === this.todoListId.toString());
-  //     },
-  //     error => {
-  //       console.log('Hit error');
-  //       console.dir(error);
-  //     }
-  //   );
-  // }
-
-
+  deleteItem($event: number) {
+    const deletedItem = this.todoListToDisplay.ListItems.findIndex(i => i.id.toString() === $event.toString());
+    this.toDoItemService.delete($event).subscribe(
+      item => {
+        console.log('Deleted item');
+        this.todoListToDisplay.ListItems.splice(deletedItem, 1);
+      },
+      error => {
+        console.log('Error deleting item');
+      }
+    );
+  }
 }
