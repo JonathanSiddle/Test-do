@@ -18,12 +18,12 @@ The application comes with a number of unit tests, to check that everything is w
 
 ### Projects
 
-![projects][DemoImages/projects.png]
+![projects](DemoImages/Projects.png)
 
 ### Project Lists
 
-![projectLists][DemoImages/Lists.png]
+![projectLists](DemoImages/Lists.png)
 
 ### ToDo List
 
-![toDoList][DemoImages/ToDoList.png]
+![toDoList](DemoImages/ToDoList.png)
