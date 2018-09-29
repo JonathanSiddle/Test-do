@@ -13,3 +13,17 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 ## Unit tests
 
 The application comes with a number of unit tests, to check that everything is working correctly run `ng test`.
+
+## Screenshots 
+
+### Projects
+
+![projects][DemoImages/projects.png]
+
+### Project Lists
+
+![projectLists][DemoImages/Lists.png]
+
+### ToDo List
+
+![toDoList][DemoImages/ToDoList.png]

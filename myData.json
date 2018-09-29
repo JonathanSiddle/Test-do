@@ -1,84 +1,44 @@
 {
   "Projects": [
     {
-      "Name": "Personal to-do list(updated2)",
+      "Name": "TestProject1",
       "Owner": "Jonathan",
-      "Tags": [
-        "Personal",
-        "Shopping"
-      ],
-      "id": 1
-    },
-    {
-      "Name": "Work to-do list",
-      "Owner": "Jonathan",
-      "Tags": [
-        "Work",
-        "Programming"
-      ],
-      "id": 2
-    },
-    {
-      "Name": "Random remaining to-dos",
-      "Owner": "Jonathan",
-      "Tags": [
-        "Personal",
-        "Shopping",
-        "Programming"
-      ],
+      "Tags": [],
       "id": 3
     }
   ],
   "ProjectLists": [
     {
-      "id": 1,
-      "Name": "Shopping",
-      "Owner": "Jonathan",
-      "ProjectId": 1
-    },
-    {
-      "id": 2,
-      "Name": "Projects",
-      "Owner": "Jonathan",
-      "ProjectId": 1
-    },
-    {
-      "id": 3,
-      "Name": "Work",
-      "Owner": "Jonathan",
-      "ProjectId": 2
-    },
-    {
-      "id": 4,
-      "Name": "Projects",
-      "Owner": "Jonathan",
-      "ProjectId": 3
-    },
-    {
-      "Name": "TestList",
+      "Name": "NewList",
       "Owner": "Jonathan",
       "ProjectId": 3,
-      "id": 5
+      "id": 4
     }
   ],
   "ListItems": [
     {
-      "Name": "Item1",
+      "Name": "TestItem1",
       "Complete": false,
-      "ProjectListId": 1,
-      "id": 2
-    },
-    {
-      "Name": "TestProjToDo1",
-      "Complete": false,
-      "ProjectListId": 2,
+      "ProjectListId": 3,
       "id": 3
     },
     {
-      "Name": "Test5",
+      "Name": "TestItem3",
+      "Complete": true,
+      "ProjectListId": 3,
+      "id": 5
+    },
+    {
+      "Name": "TestItem1",
       "Complete": false,
-      "ProjectListId": 1,
-      "id": 7
+      "ProjectListId": 4,
+      "id": 6
+    },
+    {
+      "Name": "TestItem3",
+      "Complete": true,
+      "ProjectListId": 4,
+      "id": 8
     }
   ]
 }
