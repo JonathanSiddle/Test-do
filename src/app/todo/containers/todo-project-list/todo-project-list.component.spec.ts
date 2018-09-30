@@ -186,7 +186,6 @@ describe('TodoProjectListComponent', () => {
     expect(httpClientSpy.post).toHaveBeenCalledTimes(1);
     expect(componentSpy).toHaveBeenCalled();
     expect(componentSpy).toHaveBeenCalledTimes(1);
-    // expect(componentSpy).toHaveBeenCalledWith(expectedProject);
     // expect(false).toBeTruthy();
   });
 });

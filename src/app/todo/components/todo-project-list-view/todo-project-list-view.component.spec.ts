@@ -2,11 +2,11 @@ import { ProjectDialogData } from './../../../shared/dialogs/new-project-dialog/
 import { MatDialog } from '@angular/material';
 import { of } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Component } from '@angular/core';
 
 import { TodoProjectListViewComponent } from './todo-project-list-view.component';
 import { MaterialImportsModule } from '../../../shared/material-imports.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Component } from '@angular/core';
 import { ToDoProject } from '../../../shared/models/todoProject';
 
 let returnData = new ProjectDialogData(null, 'Test Proj1', false);
@@ -25,7 +25,6 @@ export class MdDialogMock {
     };
   }
 }
-
 describe('TodoProjectListViewComponent', () => {
   let component: TodoProjectListViewComponent;
   let fixture: ComponentFixture<TodoProjectListViewComponent>;
@@ -40,7 +39,7 @@ describe('TodoProjectListViewComponent', () => {
         { path: 'App/Projects', component: TodoProjectListViewComponent },
         { path: 'App/Todo/:id', component: NavigatedComponent }
        ]) ],
-       providers: [{provide: MatDialog, useClass: MdDialogMock}],
+      providers: [{provide: MatDialog, useClass: MdDialogMock}],
       declarations: [ TodoProjectListViewComponent, NavigatedComponent ],
     })
     .compileComponents();

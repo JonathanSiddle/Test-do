@@ -1,8 +1,7 @@
-import { ToDoItem } from './../../../shared/models/todoItem';
-import { ToDoProject } from './../../../shared/models/todoProject';
+
 import { ToDoList } from './../../../shared/models/todoList';
 import { Component, OnInit, Input, EventEmitter, ViewChild, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+
 import { ProjectDialogData } from 'src/app/shared/dialogs/new-project-dialog/projectDialogData';
 import { NewProjectDialogComponent } from 'src/app/shared/dialogs/new-project-dialog/new-project-dialog.component';
 import { MatDialog, MatTable } from '@angular/material';
@@ -106,23 +105,4 @@ export class ProjectListsViewComponent implements OnInit {
   raiseDeleteListEvent(id: number) {
     this.deletedList.emit(id);
   }
-
-  // listId is a combination of the projectId and
-  // the current highest listId
-  // generateListId(projectId: number, ids: Array<number>): number {
-  //   let highestListId = 1;
-  //   // Math.max takes variable amount of numbers as a param e.g. (n1, n2, n3)
-  //   // the '...' syntax allows an array to be expanded in place
-  //   if (ids && ids.length >= 1) {
-  //     const idsWithoutProjectId = ids.map(id =>
-  //       +id.toString().replace(projectId.toString(), '')
-  //     );
-  //     console.log('Ids without projId');
-  //     console.dir(idsWithoutProjectId);
-  //     highestListId = Math.max(...idsWithoutProjectId) + 1;
-  //   }
-
-  //   const idString = projectId.toString() + highestListId.toString();
-  //   return +idString;
-  // }
 }

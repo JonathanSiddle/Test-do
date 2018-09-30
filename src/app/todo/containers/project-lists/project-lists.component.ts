@@ -21,7 +21,7 @@ export class ProjectListsComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private activatedroute: ActivatedRoute,
-    private projectListService: ProjectListsService) { }
+    public projectListService: ProjectListsService) { }
 
   ngOnInit() {
     console.log('Trying to get project lists');
@@ -69,6 +69,7 @@ export class ProjectListsComponent implements OnInit {
   clickedAddNewList($event: ToDoList) {
     this.projectListService.create($event).subscribe(
       returnedList => {
+        console.log('Hit success if - add new lists');
         this.projectLists.push(returnedList);
         this.projectListView.refreshData();
       },

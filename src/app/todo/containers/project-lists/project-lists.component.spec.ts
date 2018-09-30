@@ -115,7 +115,7 @@ describe('ProjectListsComponent', () => {
     expect(componentSpy).toHaveBeenCalledTimes(1);
     expect(componentSpy).toHaveBeenCalledWith(expectedList);
 
-    expect(false).toBeTruthy();
+    // expect(false).toBeTruthy();
   });
 
   it('should call delete when event triggered in child', () => {
@@ -135,27 +135,76 @@ describe('ProjectListsComponent', () => {
     expect(componentSpy).toHaveBeenCalledTimes(1);
     expect(componentSpy).toHaveBeenCalledWith(expectedList);
 
-    expect(false).toBeTruthy();
+    // expect(false).toBeTruthy();
   });
 
   it('should add new project and refresh data in child', () => {
+    const newList = new ToDoList('NewList', 'Jon', 1);
+    const projListService = component.projectListService;
+    const serviceSpy = spyOn(projListService, 'create').and.
+            returnValue(of(new ToDoList('NewList', 'Jon', 1)));
     component.ngOnInit();
     fixture.detectChanges();
+    const childDebugEl = fixture.debugElement.query(By.directive(MockProjectListViewComponent));
+    const childComponent = childDebugEl.componentInstance;
+    component.projectListView = childComponent; // set child object in parent
+    const componentSpy = spyOn(childComponent, 'refreshData');
 
-    expect(false).toBeTruthy();
+    component.clickedAddNewList(newList);
+
+    expect(serviceSpy).toHaveBeenCalled();
+    expect(serviceSpy).toHaveBeenCalledTimes(1);
+    expect(serviceSpy).toHaveBeenCalledWith(newList);
+    expect(componentSpy).toHaveBeenCalled();
+    expect(component.projectLists.length).toBe(4);
+    // expect(false).toBeTruthy();
   });
 
   it('should edit project and refresh data in child', () => {
+    const updatedList = new ToDoList('List1(updated)', 'Jon', 1, 1, []);
+
+    const projListService = component.projectListService;
+    const serviceSpy = spyOn(projListService, 'update').and.
+            returnValue(of(new ToDoList('List1(updated)', 'Jon', 1, 1, [])));
     component.ngOnInit();
     fixture.detectChanges();
+    const childDebugEl = fixture.debugElement.query(By.directive(MockProjectListViewComponent));
+    const childComponent = childDebugEl.componentInstance;
+    component.projectListView = childComponent; // set child object in parent
+    const componentSpy = spyOn(childComponent, 'refreshData');
 
-    expect(false).toBeTruthy();
+    component.clickedEditList(updatedList);
+
+    expect(serviceSpy).toHaveBeenCalled();
+    expect(serviceSpy).toHaveBeenCalledTimes(1);
+    expect(serviceSpy).toHaveBeenCalledWith(updatedList, updatedList.id);
+    expect(componentSpy).toHaveBeenCalled();
+    const updatedItem = component.projectLists.find(p => p.id.toString() === updatedList.id.toString());
+    expect(updatedItem.Name).toBe('List1(updated)');
+    expect(updatedItem.Owner).toBe('Jon');
+    // expect(false).toBeTruthy();
   });
 
   it('should delete project and refresh data in child', () => {
+    const projListService = component.projectListService;
+    const serviceSpy = spyOn(projListService, 'delete').and.
+            returnValue(of(1));
     component.ngOnInit();
     fixture.detectChanges();
+    const childDebugEl = fixture.debugElement.query(By.directive(MockProjectListViewComponent));
+    const childComponent = childDebugEl.componentInstance;
+    component.projectListView = childComponent; // set child object in parent
+    const componentSpy = spyOn(childComponent, 'refreshData');
 
-    expect(false).toBeTruthy();
+    component.clickedDeleteList(3);
+
+    expect(serviceSpy).toHaveBeenCalled();
+    expect(serviceSpy).toHaveBeenCalledTimes(1);
+    expect(serviceSpy).toHaveBeenCalledWith(3);
+    expect(componentSpy).toHaveBeenCalled();
+    const deletedItem = component.projectLists.find(p => p.id.toString() === '3');
+    expect(deletedItem).toBeFalsy();
+    expect(component.projectLists.length).toBe(2);
+    // expect(false).toBeTruthy();
   });
 });
