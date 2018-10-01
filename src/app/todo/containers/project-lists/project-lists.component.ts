@@ -1,9 +1,10 @@
-import { ProjectListsViewComponent } from './../../components/project-lists-view/project-lists-view.component';
-import { ProjectListsService } from './../../../shared/services/projectLists.service';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { ProjectListsViewComponent } from './../../components/project-lists-view/project-lists-view.component';
+import { ProjectListsService } from './../../../shared/services/projectLists.service';
 import { ToDoList } from '../../../shared/models/todoList';
-import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../../shared/services/projects.service';
 
 @Component({

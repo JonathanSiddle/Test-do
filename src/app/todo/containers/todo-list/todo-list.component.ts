@@ -1,10 +1,10 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, AfterViewChecked, AfterViewInit, OnChanges } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { ToDoItem } from './../../../shared/models/todoItem';
 import { ProjectListsService } from '../../../shared/services/projectLists.service';
 import { ToDoList } from '../../../shared/models/todoList';
-import { Observable } from 'rxjs';
 import { ToDoItemService } from 'src/app/shared/services/toDoItem.service';
 
 @Component({
@@ -18,22 +18,15 @@ export class TodoListComponent implements OnInit {
   public todoListId: number;
   public todoListToDisplay: ToDoList;
 
-  public sendingData = false;
-
-  constructor(private projectListsService: ProjectListsService,
+  constructor(public projectListsService: ProjectListsService,
               private activatedroute: ActivatedRoute,
-              private toDoItemService: ToDoItemService) { }
+              public toDoItemService: ToDoItemService) { }
 
   ngOnInit() {
-    console.log('Trying to get project lists');
     this.projectId = this.activatedroute.snapshot.params['id1'];
     this.todoListId = this.activatedroute.snapshot.params['id2'];
-    console.log(this.projectId + ',' + this.todoListId);
     this.projectListsService.getOne(this.todoListId).subscribe(
       returnedToDoList => {
-        console.log('Got todo list!');
-        console.dir(returnedToDoList);
-
         this.todoListToDisplay = returnedToDoList;
       },
       error => {

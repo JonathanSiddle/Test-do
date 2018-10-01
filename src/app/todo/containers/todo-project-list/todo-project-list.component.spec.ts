@@ -30,21 +30,22 @@ describe('TodoProjectListComponent', () => {
   let component: TodoProjectListComponent;
   let childComponent: MockProjectListViewComponent;
   let fixture: ComponentFixture<TodoProjectListComponent>;
-  let httpClientSpy: { get: jasmine.Spy, post: jasmine.Spy };
 
   // SET UP
   beforeEach(async(() => {
-    // set up project service with fake http client
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post']);
-    let projectServiceTest: ProjectService;
-    projectServiceTest = new ProjectService(<any>httpClientSpy);
-    httpClientSpy.get.and.returnValue(of(Array<ToDoProject>()));
-    httpClientSpy.post.and.returnValue(of(ToDoProject));
+    const projects: ToDoProject[] = [
+      new ToDoProject('Test1', 'Jon', [''], 1, null),
+      new ToDoProject('Test2', 'Jon', [''], 2, null),
+    ];
+
+    let projectService: ProjectService;
+    projectService = new ProjectService(null);
+    const projSpy = spyOn(projectService, 'getAll').and.returnValue(of(projects));
 
     TestBed.configureTestingModule({
       declarations: [ TodoProjectListComponent, MockProjectListViewComponent],
       providers: [
-        {provide: ProjectService, useValue: projectServiceTest}
+        {provide: ProjectService, useValue: projectService}
       ],
     })
     .compileComponents();
@@ -61,17 +62,12 @@ describe('TodoProjectListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('projects should init to empty list, not null', () => {
-    expect(component.projects.length).toEqual(0);
-  });
-
   it('should get projects after init', () => {
     const expectedProjects: ToDoProject[] = [
       new ToDoProject('Test1', 'Jon', [''], 1, null),
       new ToDoProject('Test2', 'Jon', [''], 2, null),
     ];
     // override the existing http spy method with new data
-    httpClientSpy.get.and.returnValue(of(expectedProjects));
 
     component.ngOnInit();
 
@@ -81,32 +77,30 @@ describe('TodoProjectListComponent', () => {
 
   it('should get projects after init async(with delay)', fakeAsync(() => {
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject('Test3', 'Jon', [''], 3, null),
-      new ToDoProject('Test4', 'Jon', [''], 4, null),
+      new ToDoProject('Test1', 'Jon', [''], 1, null),
+      new ToDoProject('Test2', 'Jon', [''], 2, null),
     ];
-    // override the existing http spy method with new data
-    httpClientSpy.get.and.returnValue(timer(1000).pipe(mapTo(expectedProjects)));
-    // make sure projects start out empty
+    const newProjectService = new ProjectService(null);
+    const serviceSpy = spyOn(newProjectService, 'getAll')
+      .and.returnValue(timer(1000).pipe(mapTo(expectedProjects)));
+    component.projectService = newProjectService;
+
+    component.projects = [];
     expect(component.projects).toEqual([]);
     // console.dir(component.projects);
 
     component.ngOnInit();
     tick(2000);
+    fixture.detectChanges();
     expect(component.projects).toEqual(expectedProjects);
     // expect(false).toBeTruthy();
   }));
 
   it('should set property of child component', fakeAsync(() => {
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject('Test5', 'Jon', [''], 5, null),
-      new ToDoProject('Test6', 'Jon', [''], 6, null),
+      new ToDoProject('Test1', 'Jon', [''], 1, null),
+      new ToDoProject('Test2', 'Jon', [''], 2, null),
     ];
-    // override the existing http spy method with new data
-    httpClientSpy.get.and.returnValue(of(expectedProjects));
-
-    // console.log('should set property of child component');
-    // console.dir(component.projects);
-    expect(component.projects).toEqual([]);
 
     component.ngOnInit();
     fixture.detectChanges();
@@ -120,15 +114,17 @@ describe('TodoProjectListComponent', () => {
 
   it('should only create child component after setting projects in host (async)', fakeAsync(() => {
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject('Test7', 'Jon', [''], 7, null),
-      new ToDoProject('Test8', 'Jon', [''], 8, null),
+      new ToDoProject('Test1', 'Jon', [''], 1, null),
+      new ToDoProject('Test2', 'Jon', [''], 2, null),
     ];
-    // override the existing http spy method with new data
-    httpClientSpy.get.and.returnValue(timer(1000).pipe(mapTo(expectedProjects)));
+    const newProjectService = new ProjectService(null);
+    const serviceSpy = spyOn(newProjectService, 'getAll')
+      .and.returnValue(timer(1000).pipe(mapTo(expectedProjects)));
+    component.projectService = newProjectService;
 
+    component.projects = null;
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.projects).toEqual([]);
 
     const htmlElement: HTMLElement = fixture.nativeElement;
     expect(htmlElement.textContent).toEqual('');
@@ -140,12 +136,11 @@ describe('TodoProjectListComponent', () => {
   }));
 
   it('should called new project method after child event', () => {
-    // set-up
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject('Test9', 'Jon', [''], 9, null),
-      new ToDoProject('Test10', 'Jon', [''], 10, null),
+      new ToDoProject('Test1', 'Jon', [''], 1, null),
+      new ToDoProject('Test2', 'Jon', [''], 2, null),
     ];
-    httpClientSpy.get.and.returnValue(of(expectedProjects));
+
     component.ngOnInit();
     fixture.detectChanges();
     const childDebugEl = fixture.debugElement.query(By.directive(MockProjectListViewComponent));
@@ -162,14 +157,15 @@ describe('TodoProjectListComponent', () => {
   });
 
   it('should send new Project to server and refresh data when addNewProject called', () => {
-    // set-up
     const expectedProjects: ToDoProject[] = [
-      new ToDoProject('Test9', 'Jon', [''], 9, null),
-      new ToDoProject('Test10', 'Jon', [''], 10, null),
+      new ToDoProject('Test1', 'Jon', [''], 1, null),
+      new ToDoProject('Test2', 'Jon', [''], 2, null),
+      new ToDoProject('testProject', 'Jonathan', [], 3, [])
     ];
     const expectedProject = new ToDoProject('testProject', 'Jonathan', [], 3, []);
-    httpClientSpy.get.and.returnValue(of(expectedProjects));
-    httpClientSpy.post.and.returnValue(of(expectedProject));
+
+    const serviceSpy = spyOn(component.projectService, 'create')
+      .and.returnValue(of(expectedProject));
     component.ngOnInit();
     fixture.detectChanges();
     const childDebugEl = fixture.debugElement.query(By.directive(MockProjectListViewComponent));
@@ -181,9 +177,64 @@ describe('TodoProjectListComponent', () => {
     component.projectListView = childComponent;
     component.addedNewProject('testProject');
 
-    expect(httpClientSpy.post).toHaveBeenCalled();
-    // possibly test data here
-    expect(httpClientSpy.post).toHaveBeenCalledTimes(1);
+    expect(serviceSpy).toHaveBeenCalled();
+    expect(serviceSpy).toHaveBeenCalledTimes(1);
+    expect(component.projects).toEqual(expectedProjects);
+    expect(componentSpy).toHaveBeenCalled();
+    expect(componentSpy).toHaveBeenCalledTimes(1);
+    // expect(false).toBeTruthy();
+  });
+
+  it('should send project to server and refresh data when deletedProject called', () => {
+    const expectedProjects: ToDoProject[] = [
+      new ToDoProject('Test1', 'Jon', [''], 1, null),
+    ];
+
+    const serviceSpy = spyOn(component.projectService, 'delete')
+      .and.returnValue(of(''));
+    component.ngOnInit();
+    fixture.detectChanges();
+    const childDebugEl = fixture.debugElement.query(By.directive(MockProjectListViewComponent));
+    childComponent = childDebugEl.componentInstance;
+    // const ProjectServiceSpy = spyOn(component.p, 'refreshData');
+
+    // testy stuff
+    const componentSpy = spyOn(childComponent, 'refreshData');
+    component.projectListView = childComponent;
+    component.deletedProject(2);
+
+    expect(serviceSpy).toHaveBeenCalled();
+    expect(serviceSpy).toHaveBeenCalledTimes(1);
+    expect(component.projects).toEqual(expectedProjects);
+    expect(componentSpy).toHaveBeenCalled();
+    expect(componentSpy).toHaveBeenCalledTimes(1);
+    // expect(false).toBeTruthy();
+  });
+
+  it('should send project to server and refresh data when editedProject called', () => {
+    const expectedProjects: ToDoProject[] = [
+      new ToDoProject('Test1', 'Jon', [''], 1, null),
+      new ToDoProject('Test2(update)', 'Jon', [''], 2, null),
+    ];
+
+    const expectedProject = new ToDoProject('Test2(update)', 'Jon', [''], 2, null);
+
+    const serviceSpy = spyOn(component.projectService, 'update')
+      .and.returnValue(of(expectedProject));
+    component.ngOnInit();
+    fixture.detectChanges();
+    const childDebugEl = fixture.debugElement.query(By.directive(MockProjectListViewComponent));
+    childComponent = childDebugEl.componentInstance;
+    // const ProjectServiceSpy = spyOn(component.p, 'refreshData');
+
+    // testy stuff
+    const componentSpy = spyOn(childComponent, 'refreshData');
+    component.projectListView = childComponent;
+    component.editedProject(expectedProject);
+
+    expect(serviceSpy).toHaveBeenCalled();
+    expect(serviceSpy).toHaveBeenCalledTimes(1);
+    expect(component.projects).toEqual(expectedProjects);
     expect(componentSpy).toHaveBeenCalled();
     expect(componentSpy).toHaveBeenCalledTimes(1);
     // expect(false).toBeTruthy();

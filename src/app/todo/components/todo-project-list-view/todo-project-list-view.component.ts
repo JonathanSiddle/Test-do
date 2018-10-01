@@ -1,8 +1,9 @@
+import { MatDialog, MatTable } from '@angular/material';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, SimpleChanges, OnChanges} from '@angular/core';
+
 import { ProjectDialogData } from './../../../shared/dialogs/new-project-dialog/projectDialogData';
 import { NewProjectDialogComponent } from './../../../shared/dialogs/new-project-dialog/new-project-dialog.component';
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, SimpleChanges, OnChanges} from '@angular/core';
 import { ToDoProject } from '../../../shared/models/todoProject';
-import { MatDialog, MatTable } from '@angular/material';
 import { YesNoDialogComponent } from '../../../shared/dialogs/yes-no-dialog/yes-no-dialog.component';
 
 @Component({
@@ -20,7 +21,7 @@ export class TodoProjectListViewComponent implements OnInit {
   @Output() deleteProject = new EventEmitter<number>();
   public displayedColumns = ['Name', 'Owner', 'Edit'];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -31,7 +32,8 @@ export class TodoProjectListViewComponent implements OnInit {
     this.dialog.open(NewProjectDialogComponent, {data: setData}).afterClosed().subscribe(
       data  => {
         const returnData = data as ProjectDialogData;
-        // console.log(projectName);
+        console.log('Got return value');
+        console.log(returnData.projectName);
         if (returnData.projectName != null) {
           this.raiseAddedProjectEvent(returnData.projectName);
         }
@@ -47,7 +49,6 @@ export class TodoProjectListViewComponent implements OnInit {
         if (data != null) {
           const returnData = data as ProjectDialogData;
           if (returnData.projectName != null) {
-            editProject.Name = returnData.projectName;
             const updateProj = new ToDoProject(
               returnData.projectName,
               editProject.Owner,

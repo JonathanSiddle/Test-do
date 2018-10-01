@@ -195,4 +195,69 @@ describe('TodoListComponent', () => {
     expect(componentSpy).toHaveBeenCalledWith(1);
     // expect(false).toBeTruthy();
   });
+
+  it('should send data to server and updated list when addedNewItem called', () => {
+    const expectedItems = new Array<ToDoItem>(
+      new ToDoItem('Item1', false, 1, 1),
+      new ToDoItem('Item2', false, 1, 2),
+      new ToDoItem('Item3', false, 1, 3),
+      new ToDoItem('Item4', false, 1, 4),
+    );
+
+    const expectedItem = new ToDoItem('Item4', false, 1, 4);
+    const serviceSpy = spyOn(component.toDoItemService, 'create')
+      .and.returnValue(of(expectedItem));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    component.addedNewItem(expectedItem);
+
+    expect(serviceSpy).toHaveBeenCalled();
+    expect(serviceSpy).toHaveBeenCalledTimes(1);
+    expect(serviceSpy).toHaveBeenCalledWith(expectedItem);
+    expect(component.todoListToDisplay.ListItems).toEqual(expectedItems);
+    // expect(false).toBeTruthy();
+  });
+
+  it('should send data to server and updated list item when editedItem called', () => {
+    const expectedItems = new Array<ToDoItem>(
+      new ToDoItem('Item1', false, 1, 1),
+      new ToDoItem('Item2(Updated)', false, 1, 2),
+      new ToDoItem('Item3', false, 1, 3),
+    );
+
+    const expectedItem = new ToDoItem('Item2(Updated)', false, 1, 2);
+    const serviceSpy = spyOn(component.toDoItemService, 'update')
+      .and.returnValue(of(expectedItem));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    component.editedItem(expectedItem);
+
+    expect(serviceSpy).toHaveBeenCalled();
+    expect(serviceSpy).toHaveBeenCalledTimes(1);
+    expect(serviceSpy).toHaveBeenCalledWith(expectedItem, 2);
+    expect(component.todoListToDisplay.ListItems).toEqual(expectedItems);
+    // expect(false).toBeTruthy();
+  });
+
+  it('should send data to server and delete list item when deleteItem called', () => {
+    const expectedItems = new Array<ToDoItem>(
+      new ToDoItem('Item1', false, 1, 1),
+      new ToDoItem('Item3', false, 1, 3),
+    );
+
+    const serviceSpy = spyOn(component.toDoItemService, 'delete')
+      .and.returnValue(of(''));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    component.deleteItem(2);
+
+    expect(serviceSpy).toHaveBeenCalled();
+    expect(serviceSpy).toHaveBeenCalledTimes(1);
+    expect(serviceSpy).toHaveBeenCalledWith(2);
+    expect(component.todoListToDisplay.ListItems).toEqual(expectedItems);
+    // expect(false).toBeTruthy();
+  });
 });

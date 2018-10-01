@@ -1,10 +1,9 @@
-
-import { ToDoList } from './../../../shared/models/todoList';
+import { MatDialog, MatTable } from '@angular/material';
 import { Component, OnInit, Input, EventEmitter, ViewChild, Output } from '@angular/core';
 
+import { ToDoList } from './../../../shared/models/todoList';
 import { ProjectDialogData } from 'src/app/shared/dialogs/new-project-dialog/projectDialogData';
 import { NewProjectDialogComponent } from 'src/app/shared/dialogs/new-project-dialog/new-project-dialog.component';
-import { MatDialog, MatTable } from '@angular/material';
 import { YesNoDialogComponent } from 'src/app/shared/dialogs/yes-no-dialog/yes-no-dialog.component';
 
 @Component({
@@ -24,7 +23,7 @@ export class ProjectListsViewComponent implements OnInit {
   @Output() public editedList = new EventEmitter<ToDoList>()
   @Output() public deletedList = new EventEmitter<number>()
 
-  constructor(private dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
     if (this.projectLists) {
@@ -87,6 +86,7 @@ export class ProjectListsViewComponent implements OnInit {
               eList.Owner,
               eList.ProjectId,
               eList.id);
+            // console.log('Rasing edit events');
             this.raiseEditListEvent(updateProj);
           }
         }

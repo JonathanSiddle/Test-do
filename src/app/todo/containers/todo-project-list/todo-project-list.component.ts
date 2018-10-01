@@ -1,7 +1,8 @@
-import { TodoProjectListViewComponent } from './../../components/todo-project-list-view/todo-project-list-view.component';
-import { Observable } from 'rxjs';
-import { ProjectService } from './../../../shared/services/projects.service';
 import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { TodoProjectListViewComponent } from './../../components/todo-project-list-view/todo-project-list-view.component';
+import { ProjectService } from './../../../shared/services/projects.service';
 import { ToDoProject } from '../../../shared/models/todoProject';
 
 @Component({
@@ -14,7 +15,7 @@ export class TodoProjectListComponent implements OnInit {
   @ViewChild(TodoProjectListViewComponent) projectListView: TodoProjectListViewComponent;
   public projects: ToDoProject[] = [];
 
-  constructor(private projectService: ProjectService) {
+  constructor(public projectService: ProjectService) {
      this.projects = [];
   }
 
@@ -47,9 +48,15 @@ export class TodoProjectListComponent implements OnInit {
     );
   }
 
-  editedProject($event: ToDoProject) { 
+  editedProject($event: ToDoProject) {
     this.projectService.update($event, $event.id).subscribe(
       editedProject => {
+        const proj = this.projects.find(p => p.id.toString() === editedProject.id.toString());
+        proj.Name = editedProject.Name;
+        proj.Owner = editedProject.Owner;
+        this.projectListView.refreshData();
+      },
+      error => {
       }
     );
   }
@@ -63,6 +70,8 @@ export class TodoProjectListComponent implements OnInit {
           this.projects.splice(dpId, 1);
         }
         this.projectListView.refreshData();
+      },
+      error => {
       }
     );
   }

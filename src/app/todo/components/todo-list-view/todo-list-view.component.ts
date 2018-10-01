@@ -31,15 +31,6 @@ export class TodoListViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.dir(this.toDoList);
-
-    this.itemName.setValidators([
-      Validators.required,
-      Validators.minLength(1),
-      Validators.maxLength(50),
-      existsInListValidator(this.toDoList.ListItems.map(i => i.Name.trim()))
-    ]);
-    console.dir(this.toDoList);
   }
 
   get itemName() {
@@ -47,7 +38,8 @@ export class TodoListViewComponent implements OnInit {
   }
 
   get isFormValid() {
-    return this.itemName.dirty && this.itemName.valid;
+    return this.itemName.dirty && this.itemName.valid && 
+    (this.toDoList.ListItems.filter(i => i.Name === this.itemName.value).length === 0);
   }
 
   enterkeyPressed() {
