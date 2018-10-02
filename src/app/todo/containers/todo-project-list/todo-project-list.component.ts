@@ -16,7 +16,6 @@ export class TodoProjectListComponent implements OnInit {
   public projects: ToDoProject[] = [];
 
   constructor(public projectService: ProjectService) {
-     this.projects = [];
   }
 
   ngOnInit() {

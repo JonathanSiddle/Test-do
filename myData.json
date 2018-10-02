@@ -1,33 +1,14 @@
 {
   "Projects": [
     {
-      "Name": "TestProject1(updated)",
+      "Name": "TestProject",
       "Owner": "Jonathan",
       "Tags": [],
-      "id": 3
+      "id": 1
     }
   ],
-  "ProjectLists": [
-    {
-      "Name": "NewList(updated)",
-      "Owner": "Jonathan",
-      "ProjectId": 3,
-      "id": 4
-    }
-  ],
+  "ProjectLists": [],
   "ListItems": [
-    {
-      "Name": "TestItem1",
-      "Complete": false,
-      "ProjectListId": 3,
-      "id": 3
-    },
-    {
-      "Name": "TestItem3",
-      "Complete": true,
-      "ProjectListId": 3,
-      "id": 5
-    },
     {
       "Name": "TestItem1",
       "Complete": false,
