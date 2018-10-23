@@ -1,3 +1,4 @@
+import { BaseUrlService } from './baseUrl.service';
 import { ToDoItem } from './../models/todoItem';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -6,7 +7,9 @@ import { DataService } from './data.service';
 
 @Injectable()
 export class ToDoItemService extends DataService<ToDoItem> {
-    constructor(protected http: HttpClient) {
-        super('ListItems', http);
+    constructor(
+        public baseUrlService: BaseUrlService,
+        protected http: HttpClient) {
+        super(baseUrlService, 'ListItems', http);
     }
 }

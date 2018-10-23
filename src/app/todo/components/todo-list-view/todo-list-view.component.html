@@ -7,7 +7,7 @@
   </p>
   <p>
     <button type="button" mat-raised-button color="accent"
-    [disabled]="!this.isFormValid" (click)="this.clickedSave()">Save</button>
+    [disabled]="!this.isFormValid" (click)="this.clickedSave(null)">Save</button>
   </p>
 </form>
 <h1> {{ this.toDoList.Name }} - {{ this.toDoList.Owner }}</h1>

@@ -3,14 +3,17 @@ import { DataService } from './data.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BaseUrlService } from './baseUrl.service';
 
 @Injectable()
 export class ProjectListsService extends DataService<ToDoList> {
 
     public dataService: DataService<ToDoList>;
 
-    constructor(protected http: HttpClient) {
-        super('ProjectLists', http);
+    constructor(
+        public baseUrlService: BaseUrlService,
+        protected http: HttpClient) {
+        super(baseUrlService, 'ProjectLists', http);
     }
 
     // getAll(): Observable<Array<ToDoList>> {

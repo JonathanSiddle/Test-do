@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { resolveReflectiveProviders } from '../../../../node_modules/@angular/core/src/di/reflective_provider';
+import { BaseUrlService } from './baseUrl.service';
 
 @Injectable()
 export class DataService <T> {
@@ -10,7 +11,11 @@ export class DataService <T> {
   private baseUrl = 'http://localhost:3000/';
   private fullUrl = '';
 
-  constructor(protected endPoint: string, protected http: HttpClient) {
+  constructor(
+    public baseUrlService: BaseUrlService,
+    protected endPoint: string,
+    protected http: HttpClient) {
+      this.baseUrl = baseUrlService.baseUrl;
       this.fullUrl = this.baseUrl + endPoint;
   }
 
@@ -18,6 +23,7 @@ export class DataService <T> {
     const headers = new Headers();
     // headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     const options = new RequestOptions({headers: headers});
+    console.log(`Getting all data with full URl: '${this.fullUrl}'`);
     return this.http.get<Array<T>>(this.fullUrl);
   }
 

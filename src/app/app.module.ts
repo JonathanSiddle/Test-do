@@ -1,3 +1,5 @@
+import { ConfigDataFetcherService } from './shared/services/ConfigDataFetcher.service';
+import { BaseUrlService } from './shared/services/baseUrl.service';
 import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -23,7 +25,9 @@ import { ToDoItemService } from './shared/services/toDoItem.service';
   providers: [
     ProjectService,
     ProjectListsService,
-    ToDoItemService
+    ToDoItemService,
+    BaseUrlService,
+    ConfigDataFetcherService
   ],
   bootstrap: [AppComponent]
 })

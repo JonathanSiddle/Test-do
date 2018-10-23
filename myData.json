@@ -5,9 +5,22 @@
       "Owner": "Jonathan",
       "Tags": [],
       "id": 1
+    },
+    {
+      "Name": "TestProj",
+      "Owner": "Jonathan",
+      "Tags": [],
+      "id": 2
     }
   ],
-  "ProjectLists": [],
+  "ProjectLists": [
+    {
+      "Name": "NewToDoList",
+      "Owner": "Jonathan",
+      "ProjectId": 2,
+      "id": 1
+    }
+  ],
   "ListItems": [
     {
       "Name": "TestItem1",
@@ -20,6 +33,18 @@
       "Complete": true,
       "ProjectListId": 4,
       "id": 8
+    },
+    {
+      "Name": "TestItem1",
+      "Complete": true,
+      "ProjectListId": 1,
+      "id": 9
+    },
+    {
+      "Name": "TestItem2",
+      "Complete": false,
+      "ProjectListId": 1,
+      "id": 10
     }
   ]
 }
