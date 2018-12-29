@@ -1,6 +1,10 @@
 # TestDo
 
-This project is a simple ToDo list application used to demonstrate key concepts and examples of how to unit test an Angular application. The application allows users to create projects consisting of multiple ToDo lists. The application is used to demonstrate some software engineering ang Angular concepts I talk about on my blog over at: [https://jonathansiddle.com/](https://jonathansiddle.com/).
+***
+This repository has now been superseded by this repository: [https://github.com/JonathanSiddle/TestDoServer](https://github.com/JonathanSiddle/TestDoServer) 
+***
+
+This project is a simple ToDo list application used to demonstrate key concepts and examples of how to unit test an Angular application. The application allows users to create projects consisting of multiple ToDo lists. The application is used to demonstrate some software engineering ang Angular concepts I talk about on my blog over at: [https://blog.jonathansiddle.com/](https://blog.jonathansiddle.com/).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli). To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
